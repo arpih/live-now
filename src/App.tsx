@@ -1,26 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import './styles/App.scss';
+import ViewController from './ViewController';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+enum Views {
+  login = 'LOGIN'
+  , account = 'ACCOUNT'
+  , register = 'REGISTER'
+  , photo = 'PHOTO'
+}
+
+type State = {
+  view?: Views
+}
+
+class App extends Component<State> {
+
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      currentUser: null,
+      view: Views.account,
+    };
+  }
+
+  setView(view: Views) {
+    this.setState({ view }, () => {});
+  }
+
+  render() {
+    return (
+      <ViewController
+        appState={this.state}
+        setView={(view: Views) => {
+          this.setView(view);
+        }}
+      />
+    );
+  }
 }
 
 export default App;

@@ -1,0 +1,162 @@
+.App {
+  display: flex;
+  justify-content: center;
+  font-family: 'Andika New Basic', sans-serif;
+  text-align: center;
+
+  .login-component, .account-component, .photo-component {
+    width: 45vw;
+    height: 85vh;
+    box-shadow: 0 16px 45px #dedcdce8;
+    margin-top: 30px;
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      svg {
+        width: 100px;
+        height: 100px;
+      }
+      .register-section {
+        padding: 20px;
+
+        .register-button {
+          text-decoration: underline;
+          font-size: 20px;
+          color: #bb936b;
+          cursor: pointer;
+        }
+      }
+      .lines {
+        svg {
+          width: 30px;
+          height: 30px;
+          fill: #bb936b;
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+
+  .login-component{
+    .main {
+      display: flex;
+      flex-direction: column;
+      justify-items: center;
+      align-items: center;
+
+      .login-input {
+        width: 20vw;
+        height: 30px;
+        border-top-style: hidden;
+        border-right-style: hidden;
+        border-left-style: hidden;
+        border-bottom-style: groove;
+        margin-bottom: 10px;
+      }
+      .login-button {
+        width: 100px;
+        height: 25px;
+        background-color: #f4dca4;
+        color: #bb936b;
+        cursor: pointer;
+        padding: 5px;
+        box-shadow: 0px 3px 6px #00000029;
+        border-radius: 30px;
+        font-size: 20px;
+        line-height: 25px;
+      }
+    }
+  }
+
+  .account-component {
+    .main {
+      .new-photo-section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        svg {
+          width: 30px;
+          height: 30px;
+          margin-right: 10px;
+          fill: #bb936b;
+        }
+      }
+      .photos-section {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 10px;
+
+        .photo {
+          padding: 5px;
+          img {
+            width: 150px;
+          }
+        }
+      }
+    }
+  }
+  
+  .photo-component {
+    .main {
+      .video {
+        width: 40vw;
+        height: 50vh;
+        margin-top: 15px;
+      }
+
+      .buttons-section {
+        position: relative;
+  
+        .button {
+          position: absolute;
+          width: 80px;
+          height: 80px;
+          background-color: #fff;
+          border-radius: 50%;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          margin: auto auto 15px;
+          border: 2px white;
+          outline: none;
+        }
+        .button:after {
+          content: '';
+          border-radius: 50%;
+          border: 2px solid #bb936b;
+          position: absolute;
+          top: 6px;
+          left: 6px;
+          bottom: 6px;
+          right: 6px;
+        }
+
+        .result-buttons {
+          display: flex;
+          justify-content: center;
+
+          div {
+            cursor: pointer;
+
+            svg {
+              width: 40px;
+              height: 40px;
+              margin: 10px;
+            }
+            .fail-icon {
+              path.shp0 {
+                fill: #d34237;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
