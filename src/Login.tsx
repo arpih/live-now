@@ -22,7 +22,6 @@ export default class Login extends Component<Props> {
           <Logo />
 
           <div className="register-section">
-            {/* <div>Not registered yet.</div> */}
             <div
               className="register-button"
               role="button"
@@ -40,13 +39,6 @@ export default class Login extends Component<Props> {
             onKeyUp={() => setView(Views.account)}
             onClick={() => setView(Views.account)}
           >Log In</div>
-          {/* <p>Not registered yet. Register now.</p>
-					<div
-						className="login-button"
-						role="button"
-						onKeyUp={() => setView(register)}
-						onClick={() => setView(register)}
-					>Register</div> */}
         </div>
       </div>
     );

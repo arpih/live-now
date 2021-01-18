@@ -3,7 +3,6 @@ import Login from './Login';
 import Account from './Account';
 import Register from './Register';
 import Photo from './Photo';
-// import { ReactComponent as Logo } from './logo.svg';
 
 type ViewControllerProps = {
   appState: any,
@@ -63,7 +62,6 @@ export default class ViewController extends Component<ViewControllerProps> {
 
     return (
       <div className="App">
-        {/* <Logo /> */}
         {viewDiv}
       </div>
     );

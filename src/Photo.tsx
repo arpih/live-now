@@ -12,7 +12,14 @@ type Props = {
 }
 
 type State = {
-	photoStatus: string,
+	photoStatus?: string,
+	// photo: PhotoType,
+}
+
+type PhotoType = {
+	photoData: string,
+  photoDesc: string,
+  photoDate?: Date,
 }
 
 enum Views {
@@ -31,12 +38,18 @@ export default class Photo extends Component<Props, State> {
 	private videoCanvasRef = React.createRef<HTMLCanvasElement>();
 	private video: any;
 	// private canvas = document.createElement('canvas');
-	private streams: any[] = [];
+  private streams: any[] = [];
+  private photoDescRef = React.createRef<HTMLDivElement>();
+  
+  private photo: PhotoType = {
+    photoData: '',
+    photoDesc: '',
+  }
 
 	constructor(props: Props) {
 		super(props);
 		this.state = {
-			photoStatus: PhotoStatus.capture,
+			// photoStatus: PhotoStatus.capture,
 		};
 	}
 
@@ -59,7 +72,10 @@ export default class Photo extends Component<Props, State> {
 			this.video.srcObject = stream;
 			this.streams.push(stream);
 			try {
-				this.video.play();
+				this.video.play()
+					.then(() => {
+						this.setState({ photoStatus: PhotoStatus.capture });
+					});
 			} catch (err) {
 				console.log(err);
 				return;
@@ -80,7 +96,8 @@ export default class Photo extends Component<Props, State> {
 		this.setState({ photoStatus: PhotoStatus.finish });
 		this.stopVideo();
 
-		const data = canvas.toDataURL('image/jpeg');
+    const data = canvas.toDataURL('image/jpeg');
+    this.photo.photoData = data;
 		return data;
 	}
 
@@ -104,7 +121,10 @@ export default class Photo extends Component<Props, State> {
 	}
 
 	successHandler = () => {
-		const { setView } = this.props;
+    const { setView, appState } = this.props;
+    const { photos } = appState;
+    if (this.photoDescRef.current) this.photo.photoDesc = this.photoDescRef.current.innerHTML;
+    photos.push(this.photo);
 
 		setView(Views.account);
 	}
@@ -166,6 +186,9 @@ export default class Photo extends Component<Props, State> {
 				<div className="main">
 					<canvas id="canvas" ref={this.videoCanvasRef} style={canvasStyle} />
 					<video className="" ref={this.videoRef} style={videoStyle} />
+          {photoStatus === PhotoStatus.finish &&
+            <div ref={this.photoDescRef} contentEditable className="photo-description" />
+          }
 					<div className="buttons-section">
 						{photoButtons}
 					</div>

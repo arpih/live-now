@@ -8,24 +8,41 @@ type Props = {
   setView: any,
 }
 
+type State = {
+  showLines: boolean,
+}
+
 enum Views {
   account = 'ACCOUNT'
   , register = 'REGISTER'
   , photo = 'PHOTO'
 }
 
-export default class Account extends Component<Props> {
+export default class Account extends Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      showLines: false,
+    };
+  }
+
+  linesHandler = () => {
+    const { showLines } = this.state;
+    this.setState({ showLines: !showLines });
+  }
 
   render() {
-    const { setView } = this.props;
-    const photos: string[] = [];
+    const { setView, appState } = this.props;
+    const { photos } = appState;
+    const { showLines } = this.state;
+    // const photos: string[] = [];
 
     const photosHTML = (
-      photos.map((photo: string) => {
+      photos.map((photo: any) => {
         return (
           <div className="photo">
-            <img src={photo} />
-            <div>hi I am Arpi</div>
+            <img src={photo.photoData} alt="user" />
+            <div>{photo.photoDesc}</div>
           </div>
         );
       })
@@ -36,12 +53,20 @@ export default class Account extends Component<Props> {
         <div className="header">
           <Logo />
 
-          <div
-            className="lines"
-            role="button"
-            onKeyUp={() => setView(Views.register)}
-            onClick={() => setView(Views.register)}
-          ><Lines /></div>
+          <div>
+            <div
+              className="lines"
+              role="button"
+              onKeyUp={() => this.linesHandler()}
+              onClick={() => this.linesHandler()}
+            ><Lines /></div>
+            {showLines &&
+              <div>
+                <div>Username</div>
+                <div>Sign Up</div>
+              </div>
+            }
+          </div>
         </div>
         <div className="main">
           <div className="new-photo-section">
@@ -54,19 +79,7 @@ export default class Account extends Component<Props> {
             <div>Would you like to share your moment?</div>
           </div>
           <div className="photos-section">
-            <div className="photo">
-              <img src={photos[0]} />
-              <div>hi I am Arpi</div>
-            </div>
-            <div className="photo">
-              <img src={photos[0]} />
-              <div>hi I am Arpi</div>
-            </div>
-            <div className="photo">
-              <img src={photos[0]} />
-              <div>hi I am Arpi</div>
-            </div>
-            {/* {photosHTML} */}
+            {photosHTML}
           </div>
         </div>
       </div>

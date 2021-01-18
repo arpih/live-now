@@ -10,7 +10,8 @@ enum Views {
 }
 
 type State = {
-  view?: Views
+  view?: Views,
+  photos?: any,
 }
 
 class App extends Component<State> {
@@ -18,8 +19,8 @@ class App extends Component<State> {
   constructor(props: any) {
     super(props);
     this.state = {
-      currentUser: null,
-      view: Views.account,
+      view: Views.login,
+      photos: [],
     };
   }
 
