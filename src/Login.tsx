@@ -7,17 +7,21 @@ type Props = {
   setView: any,
 }
 
+/* eslint-disable no-unused-vars */
+
 enum Views {
   account = 'ACCOUNT'
   , register = 'REGISTER'
 }
+
+/* eslint-enable no-unused-vars */
 
 export default class Login extends Component<Props> {
   render() {
     const { setView } = this.props;
 
     return (
-      <div className='login-component'>
+      <div className="login-component">
         <div className="header">
           <Logo />
 
@@ -25,8 +29,12 @@ export default class Login extends Component<Props> {
             <div
               className="register-button"
               role="button"
+              tabIndex={0}
+              onKeyUp={signInWithGoogle}
               onClick={signInWithGoogle}
-            >Register now.</div>
+            >
+              Register now.
+            </div>
           </div>
         </div>
         <h1>Login</h1>
@@ -36,9 +44,12 @@ export default class Login extends Component<Props> {
           <div
             className="login-button"
             role="button"
+            tabIndex={0}
             onKeyUp={() => setView(Views.account)}
             onClick={() => setView(Views.account)}
-          >Log In</div>
+          >
+            Log In
+          </div>
         </div>
       </div>
     );

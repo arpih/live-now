@@ -9,12 +9,16 @@ type ViewControllerProps = {
   setView: any,
 }
 
+/* eslint-disable no-unused-vars */
+
 enum Views {
   login = 'LOGIN'
   , account = 'ACCOUNT'
   , register = 'REGISTER'
   , photo = 'PHOTO'
 }
+
+/* eslint-enable no-unused-vars */
 
 export default class ViewController extends Component<ViewControllerProps> {
   render() {
@@ -57,6 +61,9 @@ export default class ViewController extends Component<ViewControllerProps> {
             appState={appState}
           />
         );
+        break;
+
+      default:
         break;
     }
 

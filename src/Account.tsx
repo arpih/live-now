@@ -12,11 +12,15 @@ type State = {
   showLines: boolean,
 }
 
+/* eslint-disable no-unused-vars */
+
 enum Views {
   account = 'ACCOUNT'
   , register = 'REGISTER'
   , photo = 'PHOTO'
 }
+
+/* eslint-enable no-unused-vars */
 
 export default class Account extends Component<Props, State> {
   constructor(props: Props) {
@@ -35,21 +39,17 @@ export default class Account extends Component<Props, State> {
     const { setView, appState } = this.props;
     const { photos } = appState;
     const { showLines } = this.state;
-    // const photos: string[] = [];
 
-    const photosHTML = (
-      photos.map((photo: any) => {
-        return (
-          <div className="photo">
-            <img src={photo.photoData} alt="user" />
-            <div>{photo.photoDesc}</div>
-          </div>
-        );
-      })
-    );
+    const photosHTML = photos
+      .map((photo: any) => (
+        <div className="photo">
+          <img src={photo.photoData} alt="user" />
+          <div>{photo.photoDesc}</div>
+        </div>
+      ));
 
     return (
-      <div className='account-component'>
+      <div className="account-component">
         <div className="header">
           <Logo />
 
@@ -57,24 +57,29 @@ export default class Account extends Component<Props, State> {
             <div
               className="lines"
               role="button"
+              tabIndex={0}
               onKeyUp={() => this.linesHandler()}
               onClick={() => this.linesHandler()}
-            ><Lines /></div>
-            {showLines &&
+            >
+              <Lines />
+            </div>
+            { showLines && (
               <div>
                 <div>Username</div>
                 <div>Sign Up</div>
               </div>
-            }
+            )}
           </div>
         </div>
         <div className="main">
           <div className="new-photo-section">
             <div
               role="button"
+              tabIndex={0}
               onKeyUp={() => setView(Views.photo)}
               onClick={() => setView(Views.photo)}
-            ><Photo />
+            >
+              <Photo />
             </div>
             <div>Would you like to share your moment?</div>
           </div>

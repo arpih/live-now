@@ -5,36 +5,40 @@ type Props = {
   setView: any,
 }
 
+/* eslint-disable no-unused-vars */
+
 enum Views {
   login = 'LOGIN'
 }
 
+/* eslint-enable no-unused-vars */
+
 export default class Register extends Component<Props> {
   render() {
-    const { setView } = this.props;
-    const { login } = Views;
+    // const { setView } = this.props;
+    // const { login } = Views;
 
     return (
-      <div className='login-component'>
-        <div className='login'>
+      <div className="login-component">
+        <div className="login">
           <h1>Register</h1>
           <input className="login-input" type="text" name="name" placeholder="First Name" />
           <input className="login-input" type="text" name="name" placeholder="Last Name" />
           <input className="login-input" type="text" name="name" placeholder="Username" />
           <input className="login-input" type="text" name="name" placeholder="Password" />
-          <button
+          {/* <button
             className="login-button"
             type="button"
             onKeyUp={() => setView(login)}
             onClick={() => setView(login)}
-          >Register</button>
+          >Register</button> */}
           <p>Already registered. Go to back.</p>
-          <button
+          {/* <button
             className="login-button"
             type="button"
             onKeyUp={() => setView(login)}
             onClick={() => setView(login)}
-          >Back</button>
+          >Back</button> */}
         </div>
       </div>
     );
