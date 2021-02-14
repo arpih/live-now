@@ -27,14 +27,33 @@
           font-size: 20px;
           color: #bb936b;
           cursor: pointer;
+          outline: none;
         }
       }
-      .lines {
-        svg {
-          width: 30px;
-          height: 30px;
-          fill: #bb936b;
+      .header-info {
+        display: flex;
+        align-items: center;
+
+        .user-info {
           margin-right: 10px;
+          .register-button {
+            text-decoration: underline;
+            font-size: 20px;
+            color: #bb936b;
+            cursor: pointer;
+            outline: none;
+          }
+        }
+        .additional-info {
+          .lines {
+            outline: none;
+            svg {
+              width: 30px;
+              height: 30px;
+              fill: #bb936b;
+              margin-right: 10px;
+            }
+          }
         }
       }
     }

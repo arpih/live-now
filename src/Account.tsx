@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
 import { ReactComponent as Logo } from './images/logo.svg';
-import { ReactComponent as Lines } from './images/three-horizontal-lines.svg';
 import { ReactComponent as Photo } from './images/photo.svg';
+import { auth } from './firebase/firebase.utils';
 
 type Props = {
   appState: any,
   setView: any,
 }
 
-type State = {
-  showLines: boolean,
-}
+type State = {}
 
 /* eslint-disable no-unused-vars */
 
@@ -25,20 +23,12 @@ enum Views {
 export default class Account extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    this.state = {
-      showLines: false,
-    };
-  }
-
-  linesHandler = () => {
-    const { showLines } = this.state;
-    this.setState({ showLines: !showLines });
+    this.state = {};
   }
 
   render() {
     const { setView, appState } = this.props;
     const { photos } = appState;
-    const { showLines } = this.state;
 
     const photosHTML = photos
       .map((photo: any) => (
@@ -53,22 +43,18 @@ export default class Account extends Component<Props, State> {
         <div className="header">
           <Logo />
 
-          <div>
-            <div
-              className="lines"
-              role="button"
-              tabIndex={0}
-              onKeyUp={() => this.linesHandler()}
-              onClick={() => this.linesHandler()}
-            >
-              <Lines />
-            </div>
-            { showLines && (
-              <div>
-                <div>Username</div>
-                <div>Sign Up</div>
+          <div className="header-info">
+            <div className="user-info">
+              <div
+                className="register-button"
+                role="button"
+                tabIndex={0}
+                onKeyUp={() => auth.signOut()}
+                onClick={() => auth.signOut()}
+              >
+                Sign out
               </div>
-            )}
+            </div>
           </div>
         </div>
         <div className="main">

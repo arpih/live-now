@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { ReactComponent as Logo } from './images/logo.svg';
-import { ReactComponent as Lines } from './images/three-horizontal-lines.svg';
 import { ReactComponent as Success } from './images/success.svg';
 import { ReactComponent as Fail } from './images/fail.svg';
+import { auth } from './firebase/firebase.utils';
 
 const videoResolution = { width: 300, height: 300 };
 
@@ -138,7 +138,6 @@ export default class Photo extends Component<Props, State> {
   }
 
   render() {
-    const { setView } = this.props;
     const { photoStatus } = this.state;
     let photoButtons: any;
     const videoStyle: any = {};
@@ -192,14 +191,19 @@ export default class Photo extends Component<Props, State> {
       <div className="photo-component">
         <div className="header">
           <Logo />
-          <div
-            className="lines"
-            role="button"
-            tabIndex={0}
-            onKeyUp={() => setView(Views.register)}
-            onClick={() => setView(Views.register)}
-          >
-            <Lines />
+
+          <div className="header-info">
+            <div className="user-info">
+              <div
+                className="register-button"
+                role="button"
+                tabIndex={0}
+                onKeyUp={() => auth.signOut()}
+                onClick={() => auth.signOut()}
+              >
+                Sign out
+              </div>
+            </div>
           </div>
         </div>
         <div className="main">

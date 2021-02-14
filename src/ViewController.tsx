@@ -7,6 +7,7 @@ import Photo from './Photo';
 type ViewControllerProps = {
   appState: any,
   setView: any,
+  currentUser: any,
 }
 
 /* eslint-disable no-unused-vars */
@@ -23,7 +24,7 @@ enum Views {
 export default class ViewController extends Component<ViewControllerProps> {
   render() {
     let viewDiv = (<div />);
-    const { appState, setView } = this.props;
+    const { appState, setView, currentUser } = this.props;
     const { view } = appState;
 
     switch (view) {
@@ -32,6 +33,7 @@ export default class ViewController extends Component<ViewControllerProps> {
           <Login
             setView={setView}
             appState={appState}
+            currentUser={currentUser}
           />
         );
         break;

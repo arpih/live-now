@@ -1,10 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './styles/App.scss';
 import ViewController from './ViewController';
+import { auth, createUserProfileDocument, addPhoto } from './firebase/firebase.utils';
 
 type State = {
   view?: Views,
   photos?: any,
+  currentUser?: any,
 }
 
 /* eslint-disable no-unused-vars */
@@ -18,13 +20,42 @@ enum Views {
 
 /* eslint-enable no-unused-vars */
 
-class App extends Component<State> {
+class App extends React.Component<{}, State> {
+  private unsubscriveFromAuth: any = null;
+
   constructor(props: any) {
     super(props);
     this.state = {
       view: Views.login, // eslint-disable-line react/no-unused-state
       photos: [], // eslint-disable-line react/no-unused-state
+      currentUser: null,
     };
+  }
+
+  componentDidMount() {
+    const { photos } = this.state;
+    this.unsubscriveFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+      if (userAuth) {
+        createUserProfileDocument(userAuth)
+          .then((userRef: any) => {
+            userRef.onSnapshot((snapShot: any) => {
+              this.setState({
+                id: snapShot.id, // eslint-disable-line react/no-unused-state
+                ...snapShot.data(),
+              }, () => {
+                this.setView(Views.account);
+                console.log(this.state);
+              });
+            });
+          });
+      }
+      this.setState({ currentUser: userAuth });
+      addPhoto('collections', photos);
+    });
+  }
+
+  componentWillUnmount() {
+    this.unsubscriveFromAuth();
   }
 
   setView(view: Views) {
@@ -32,12 +63,15 @@ class App extends Component<State> {
   }
 
   render() {
+    const { currentUser } = this.state;
+
     return (
       <ViewController
         appState={this.state}
         setView={(view: Views) => {
           this.setView(view);
         }}
+        currentUser={currentUser}
       />
     );
   }
