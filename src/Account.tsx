@@ -28,7 +28,7 @@ export default class Account extends Component<Props, State> {
 
   render() {
     const { setView, appState } = this.props;
-    const { photos } = appState;
+    const { photos, currentUser } = appState;
 
     const photosHTML = photos
       .map((photo: any) => (
@@ -38,6 +38,11 @@ export default class Account extends Component<Props, State> {
         </div>
       ));
 
+    let imgSrc = '';
+    if (currentUser) imgSrc = currentUser.photoURL;
+
+    const userName = currentUser.displayName;
+
     return (
       <div className="account-component">
         <div className="header">
@@ -45,6 +50,15 @@ export default class Account extends Component<Props, State> {
 
           <div className="header-info">
             <div className="user-info">
+              <div className="user">
+                <div className="user-photo">
+                  <img
+                    src={imgSrc}
+                    alt="userPhoto"
+                  />
+                </div>
+                <div>{userName}</div>
+              </div>
               <div
                 className="register-button"
                 role="button"
@@ -60,6 +74,7 @@ export default class Account extends Component<Props, State> {
         <div className="main">
           <div className="new-photo-section">
             <div
+              className="new-photo-button"
               role="button"
               tabIndex={0}
               onKeyUp={() => setView(Views.photo)}

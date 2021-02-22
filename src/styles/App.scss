@@ -18,6 +18,12 @@
       svg {
         width: 100px;
         height: 100px;
+        #path0 {
+          fill:  #004d8c;
+        }
+        #path1 {
+          // fill:  #FF0000;;
+        }
       }
       .register-section {
         padding: 20px;
@@ -25,7 +31,7 @@
         .register-button {
           text-decoration: underline;
           font-size: 20px;
-          color: #bb936b;
+          color: #004d8c;
           cursor: pointer;
           outline: none;
         }
@@ -35,11 +41,23 @@
         align-items: center;
 
         .user-info {
+          text-align: right;
           margin-right: 10px;
+          .user {
+            display: flex;
+            align-items: center;
+            .user-photo {
+              img {
+                width: 30px;
+                height: 30px;
+                margin-right: 10px;
+              }
+            }
+          }
           .register-button {
             text-decoration: underline;
             font-size: 20px;
-            color: #bb936b;
+            color: #004d8c;
             cursor: pointer;
             outline: none;
           }
@@ -50,7 +68,7 @@
             svg {
               width: 30px;
               height: 30px;
-              fill: #bb936b;
+              fill: #004d8c;
               margin-right: 10px;
             }
           }
@@ -79,7 +97,7 @@
         width: 100px;
         height: 25px;
         background-color: #f4dca4;
-        color: #bb936b;
+        color: #004d8c;
         cursor: pointer;
         padding: 5px;
         box-shadow: 0px 3px 6px #00000029;
@@ -97,11 +115,15 @@
         justify-content: center;
         align-items: center;
 
-        svg {
-          width: 30px;
-          height: 30px;
-          margin-right: 10px;
-          fill: #bb936b;
+        .new-photo-button {
+          cursor: pointer;
+          outline: none;
+          svg {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+            fill: #004d8c;
+          }
         }
       }
       .photos-section {
@@ -156,7 +178,7 @@
         .button:after {
           content: '';
           border-radius: 50%;
-          border: 2px solid #bb936b;
+          border: 2px solid #004d8c;
           position: absolute;
           top: 6px;
           left: 6px;

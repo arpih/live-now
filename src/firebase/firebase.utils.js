@@ -32,6 +32,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
         displayName,
         email,
         createAt,
+        photos: [],
         ...additionalData,
       });
     } catch (error) {
@@ -42,16 +43,17 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   return userRef; // eslint-disable-line consistent-return
 };
 
-export const addPhoto = (collectionKey, objectsToAdd) => {
-  const collectonRef = firestore.collection(collectionKey);
-  const batch = firestore.batch();
-  objectsToAdd.forEach((obj) => {
-    const newDocRef = collectonRef.doc();
-    batch.set(newDocRef, obj);
+export const addPhoto = (userId, objectsToAdd) => {
+  firestore.collection('users').doc(userId).update({
+    photos: firebase.firestore.FieldValue.arrayUnion(objectsToAdd),
   });
+};
 
-  batch.commit()
-    .then((result) => result);
+export const getData = () => {
+  const displayName = firebase.database().ref('users');
+  displayName.on('value', (snapshot) => {
+    console.log(snapshot.val());
+  });
 };
 
 const provider = new firebase.auth.GoogleAuthProvider();

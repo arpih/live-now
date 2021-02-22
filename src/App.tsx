@@ -1,7 +1,7 @@
 import React from 'react';
 import './styles/App.scss';
 import ViewController from './ViewController';
-import { auth, createUserProfileDocument, addPhoto } from './firebase/firebase.utils';
+import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
 type State = {
   view?: Views,
@@ -33,7 +33,6 @@ class App extends React.Component<{}, State> {
   }
 
   componentDidMount() {
-    const { photos } = this.state;
     this.unsubscriveFromAuth = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
         createUserProfileDocument(userAuth)
@@ -44,13 +43,11 @@ class App extends React.Component<{}, State> {
                 ...snapShot.data(),
               }, () => {
                 this.setView(Views.account);
-                console.log(this.state);
               });
             });
           });
       }
       this.setState({ currentUser: userAuth });
-      addPhoto('collections', photos);
     });
   }
 

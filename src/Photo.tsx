@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { ReactComponent as Logo } from './images/logo.svg';
 import { ReactComponent as Success } from './images/success.svg';
 import { ReactComponent as Fail } from './images/fail.svg';
-import { auth } from './firebase/firebase.utils';
+import { auth, addPhoto } from './firebase/firebase.utils';
 
 const videoResolution = { width: 300, height: 300 };
 
@@ -130,11 +130,17 @@ export default class Photo extends Component<Props, State> {
 
   successHandler = () => {
     const { setView, appState } = this.props;
-    const { photos } = appState;
+    const { photos, currentUser } = appState;
     if (this.photoDescRef.current) this.photo.photoDesc = this.photoDescRef.current.innerHTML;
     photos.push(this.photo);
 
     setView(Views.account);
+
+    console.log(currentUser.uid, '111111111');
+
+    // const name = new Date();
+    // const metadata = {content}
+    addPhoto(currentUser.uid, this.photo);
   }
 
   render() {
