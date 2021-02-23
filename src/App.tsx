@@ -1,12 +1,24 @@
 import React from 'react';
 import './styles/App.scss';
+import counterpart from 'counterpart';
+// @ts-ignore
+import Translate from 'react-translate-component';
+
 import ViewController from './ViewController';
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
+
+import en from './lang/en';
+import am from './lang/am';
+
+counterpart.registerTranslations('en', en);
+counterpart.registerTranslations('am', am);
+counterpart.setLocale('en');
 
 type State = {
   view?: Views,
   photos?: any,
   currentUser?: any,
+  lang: any,
 }
 
 /* eslint-disable no-unused-vars */
@@ -28,7 +40,8 @@ class App extends React.Component<{}, State> {
     this.state = {
       view: Views.login, // eslint-disable-line react/no-unused-state
       photos: [], // eslint-disable-line react/no-unused-state
-      currentUser: null,
+      currentUser: null, // eslint-disable-line react/no-unused-state
+      lang: 'en',
     };
   }
 
@@ -47,7 +60,7 @@ class App extends React.Component<{}, State> {
             });
           });
       }
-      this.setState({ currentUser: userAuth });
+      this.setState({ currentUser: userAuth }); // eslint-disable-line react/no-unused-state
     });
   }
 
@@ -59,17 +72,27 @@ class App extends React.Component<{}, State> {
     this.setState({ view }, () => {}); // eslint-disable-line react/no-unused-state
   }
 
-  render() {
-    const { currentUser } = this.state;
+  setLang = (lang: any) => {
+    this.setState({ lang: lang.target.value });
+    counterpart.setLocale(lang.target.value);
+  }
 
+  render() {
+    const { lang } = this.state;
     return (
-      <ViewController
-        appState={this.state}
-        setView={(view: Views) => {
-          this.setView(view);
-        }}
-        currentUser={currentUser}
-      />
+      <>
+        <select value={lang} onChange={(e) => this.setLang(e)}>
+          <option value="en">EN</option>
+          <option value="am">AM</option>
+        </select>
+        <Translate content="startWelcome" component="h1" />
+        <ViewController
+          appState={this.state}
+          setView={(view: Views) => {
+            this.setView(view);
+          }}
+        />
+      </>
     );
   }
 }

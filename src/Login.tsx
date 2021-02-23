@@ -5,7 +5,6 @@ import { signInWithGoogle, auth } from './firebase/firebase.utils';
 type Props = {
   appState: any,
   setView: any,
-  currentUser: any,
 }
 
 /* eslint-disable no-unused-vars */
@@ -26,7 +25,8 @@ export default class Login extends Component<Props> {
   // }
 
   render() {
-    const { currentUser } = this.props;
+    const { appState } = this.props;
+    const { currentUser } = appState;
     const links = (currentUser) ? (
       <div
         className="register-button"
@@ -56,9 +56,29 @@ export default class Login extends Component<Props> {
 
           <div className="register-section">
             {links}
+            {/* <div className="langs">
+              <div
+                className="register-button"
+                role="button"
+                tabIndex={0}
+                onKeyUp={() => changeLanguage('en')}
+                onClick={() => changeLanguage('en')}
+              >
+                EN
+              </div>
+              <div
+                className="register-button"
+                role="button"
+                tabIndex={0}
+                onKeyUp={() => changeLanguage('am')}
+                onClick={() => changeLanguage('am')}
+              >
+                AM
+              </div>
+            </div> */}
           </div>
         </div>
-        {/* <h1>Login</h1> */}
+        {/* <h1>{t('start.welcome')}</h1> */}
         <div className="main">
           {/* <input className="login-input" type="text" name="name" placeholder="Username" />
           <input className="login-input" type="text" name="name" placeholder="Password" />
