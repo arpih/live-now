@@ -1,1 +1,1 @@
-export default { startWelcome: 'Welcome' };
+export default { startWelcome: 'Ողջույն' };
