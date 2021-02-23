@@ -1,0 +1,1 @@
+export default { startWelcome: 'crwdns1210:0crwdne1210:0' };
