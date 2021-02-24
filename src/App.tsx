@@ -7,12 +7,10 @@ import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
 import en from './lang/en';
 import am from './lang/hy';
-import es from './lang/es';
 
 counterpart.registerTranslations('en', en);
 counterpart.registerTranslations('am', am);
-counterpart.registerTranslations('es', es);
-counterpart.setLocale('es');
+counterpart.setLocale('en');
 
 type State = {
   view?: Views,
