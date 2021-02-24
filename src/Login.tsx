@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 // @ts-ignore
 import Translate from 'react-translate-component';
 import { ReactComponent as Logo } from './images/logo.svg';
+import { ReactComponent as Photo } from './images/photo.svg';
 import { signInWithGoogle, auth } from './firebase/firebase.utils';
 
 type Props = {
@@ -80,19 +81,18 @@ export default class Login extends Component<Props> {
             </div> */}
           </div>
         </div>
-        {/* <h1>{t('start.welcome')}</h1> */}
+        <Translate content="loginWelcome" component="h1" />
         <div className="main">
-          {/* <input className="login-input" type="text" name="name" placeholder="Username" />
-          <input className="login-input" type="text" name="name" placeholder="Password" />
-          <div
-            className="login-button"
-            role="button"
-            tabIndex={0}
-            onKeyUp={signInWithGoogle}
-            onClick={signInWithGoogle}
-          >
-            Log In
-          </div> */}
+          <div className="new-photo-section">
+            <div
+              className="new-photo-button"
+              role="button"
+              tabIndex={0}
+            >
+              <Photo />
+            </div>
+            <Translate content="loginMessage" component="div" />
+          </div>
         </div>
       </div>
     );

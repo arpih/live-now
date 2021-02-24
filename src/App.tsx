@@ -1,18 +1,18 @@
 import React from 'react';
 import './styles/App.scss';
 import counterpart from 'counterpart';
-// @ts-ignore
-import Translate from 'react-translate-component';
 
 import ViewController from './ViewController';
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
 import en from './lang/en';
-import am from './lang/am';
+import am from './lang/hy';
+import es from './lang/es';
 
 counterpart.registerTranslations('en', en);
 counterpart.registerTranslations('am', am);
-counterpart.setLocale('en');
+counterpart.registerTranslations('es', es);
+counterpart.setLocale('es');
 
 type State = {
   view?: Views,
@@ -85,7 +85,7 @@ class App extends React.Component<{}, State> {
           <option value="en">EN</option>
           <option value="am">AM</option>
         </select>
-        <Translate content="startWelcome" component="h1" />
+        {/* <Translate content="startWelcome" component="h1" /> */}
         <ViewController
           appState={this.state}
           setView={(view: Views) => {
