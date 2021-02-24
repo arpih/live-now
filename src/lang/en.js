@@ -1,1 +1,5 @@
-export default { startWelcome: 'Welcome!' };
+export default {
+    startWelcome: 'Welcome!',
+    loginSignOut: 'Sign out',
+    loginSignIn: 'Sign in'
+};
