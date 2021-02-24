@@ -1,1 +1,5 @@
-export default { startWelcome: 'Բարի գալուստ' };
+export default {
+    startWelcome: 'Բարի գալուստ',
+    loginSignOut: 'Sign out',
+    loginSignIn: 'Sign in'
+};
