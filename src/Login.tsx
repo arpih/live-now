@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+// @ts-ignore
+import Translate from 'react-translate-component';
 import { ReactComponent as Logo } from './images/logo.svg';
 import { signInWithGoogle, auth } from './firebase/firebase.utils';
 
@@ -35,7 +37,7 @@ export default class Login extends Component<Props> {
         onKeyUp={() => auth.signOut()}
         onClick={() => auth.signOut()}
       >
-        Sign out
+        <Translate content="loginSignOut" />
       </div>
     ) : (
       <div
@@ -45,7 +47,7 @@ export default class Login extends Component<Props> {
         onKeyUp={signInWithGoogle}
         onClick={signInWithGoogle}
       >
-        Sign in
+        <Translate content="loginSignIn" />
       </div>
     );
 
