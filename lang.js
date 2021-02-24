@@ -1,5 +1,6 @@
 export default {
-  startWelcome: 'Welcome',
-  loginSignOut: 'Sign out',
-  loginSignIn: 'Sign in',
+  loginWelcome: 'Welcome',
+  loginSignIn: 'Sign In',
+  loginSignOut: 'Sign Out',
+  loginMessage: 'Would you like to share your moment?',
 };
