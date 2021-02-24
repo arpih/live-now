@@ -1,6 +1,6 @@
 export default {
     loginWelcome: 'Բարի գալուստ',
     loginSignIn: 'Մուտք գործել',
-    loginSignOut: 'Sign Out',
-    loginMessage: 'Կցանկանայի՞ք կիսվել ձեր պահով:'
+    loginSignOut: 'Դուրս գալ',
+    loginMessage: 'Ցանկանու՞մ եք կիսվել ձեր պահը։'
 };
