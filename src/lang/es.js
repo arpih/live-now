@@ -1,5 +1,6 @@
 export default {
-    startWelcome: 'crwdns1210:0crwdne1210:0',
-    loginSignOut: 'crwdns1212:0crwdne1212:0',
-    loginSignIn: 'crwdns1214:0crwdne1214:0'
+    loginWelcome: 'crwdns1216:0crwdne1216:0',
+    loginSignIn: 'crwdns1218:0crwdne1218:0',
+    loginSignOut: 'crwdns1220:0crwdne1220:0',
+    loginMessage: 'crwdns1222:0crwdne1222:0'
 };
