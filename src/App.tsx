@@ -83,7 +83,6 @@ class App extends React.Component<{}, State> {
           <option value="en">EN</option>
           <option value="am">AM</option>
         </select>
-        {/* <Translate content="startWelcome" component="h1" /> */}
         <ViewController
           appState={this.state}
           setView={(view: Views) => {

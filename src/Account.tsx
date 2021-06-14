@@ -39,9 +39,11 @@ export default class Account extends Component<Props, State> {
       ));
 
     let imgSrc = '';
-    if (currentUser) imgSrc = currentUser.photoURL;
-
-    const userName = currentUser.displayName;
+    let userName = '';
+    if (currentUser) {
+      imgSrc = currentUser.photoURL;
+      userName = currentUser.displayName;
+    }
 
     return (
       <div className="account-component">
@@ -52,10 +54,13 @@ export default class Account extends Component<Props, State> {
             <div className="user-info">
               <div className="user">
                 <div className="user-photo">
-                  <img
-                    src={imgSrc}
-                    alt="userPhoto"
-                  />
+                  {imgSrc
+                    && (
+                      <img
+                        src={imgSrc}
+                        alt="userPhoto"
+                      />
+                    )}
                 </div>
                 <div>{userName}</div>
               </div>
@@ -63,7 +68,7 @@ export default class Account extends Component<Props, State> {
                 className="register-button"
                 role="button"
                 tabIndex={0}
-                onKeyUp={() => auth.signOut()}
+                onKeyUp={() => {}}
                 onClick={() => auth.signOut()}
               >
                 Sign out

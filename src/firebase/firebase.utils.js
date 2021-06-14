@@ -43,16 +43,31 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   return userRef; // eslint-disable-line consistent-return
 };
 
-export const addPhoto = (userId, objectsToAdd) => {
+export const allPhotos = async () => {
+  const photos = [];
+
+  const docRef = firestore.collection('users').doc('allPhotos');
+  const doc = await docRef.get();
+
+  if (doc.exists) {
+    const docData = doc.data().photos;
+    for (let i = 0; i < docData.length; i += 1) {
+      photos.push(docData[i]);
+    }
+  } else {
+    // doc.data() will be undefined in this case
+    console.log('No such document!');
+  }
+
+  return photos;
+};
+
+export const addPhoto = (userId, objectsToAdd, photo) => {
   firestore.collection('users').doc(userId).update({
     photos: firebase.firestore.FieldValue.arrayUnion(objectsToAdd),
   });
-};
-
-export const getData = () => {
-  const displayName = firebase.database().ref('users');
-  displayName.on('value', (snapshot) => {
-    console.log(snapshot.val());
+  firestore.collection('users').doc('allPhotos').update({
+    photos: firebase.firestore.FieldValue.arrayUnion(photo),
   });
 };
 

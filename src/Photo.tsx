@@ -130,17 +130,16 @@ export default class Photo extends Component<Props, State> {
 
   successHandler = () => {
     const { setView, appState } = this.props;
-    const { photos, currentUser } = appState;
+    const { currentUser } = appState;
     if (this.photoDescRef.current) this.photo.photoDesc = this.photoDescRef.current.innerHTML;
-    photos.push(this.photo);
+    const photo = JSON.parse(JSON.stringify(this.photo));
+    photo.userName = currentUser.displayName;
 
     setView(Views.account);
 
-    console.log(currentUser.uid, '111111111');
-
     // const name = new Date();
     // const metadata = {content}
-    addPhoto(currentUser.uid, this.photo);
+    addPhoto(currentUser.uid, this.photo, photo);
   }
 
   render() {
@@ -217,7 +216,15 @@ export default class Photo extends Component<Props, State> {
           <video className="" ref={this.videoRef} style={videoStyle} muted playsInline />
           {
             photoStatus === PhotoStatus.finish
-            && <div ref={this.photoDescRef} contentEditable className="photo-description" />
+            && (
+              <div>
+                <input
+                  className="photo-description"
+                  placeholder="Photo description"
+                />
+              </div>
+            )
+            // && <div ref={this.photoDescRef} contentEditable className="photo-description" />
           }
           <div className="buttons-section">
             {photoButtons}
