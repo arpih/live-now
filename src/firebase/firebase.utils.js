@@ -36,7 +36,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
         ...additionalData,
       });
     } catch (error) {
-      console.log('error creating user', error.message);
+      console.log('error creating user', error.message); // eslint-disable-line no-console
     }
   }
 
@@ -56,7 +56,7 @@ export const allPhotos = async () => {
     }
   } else {
     // doc.data() will be undefined in this case
-    console.log('No such document!');
+    console.log('No such document!'); // eslint-disable-line no-console
   }
 
   return photos;
