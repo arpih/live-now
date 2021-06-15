@@ -37,5 +37,3 @@ You can use any of the two commands that work both for backend and frontend:
 No special setup is required to make tests work, just run the following commands:
 
 `$ npm run test`
-
-2. Test the frontend:
