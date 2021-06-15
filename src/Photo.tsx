@@ -12,14 +12,14 @@ type Props = {
 }
 
 type State = {
+  photoDesc: string
   photoStatus?: string,
-  // photo: PhotoType,
 }
 
 type PhotoType = {
   photoData: string,
   photoDesc: string,
-  photoDate?: Date,
+  photoDate: Date,
 }
 
 /* eslint-disable no-unused-vars */
@@ -46,17 +46,16 @@ export default class Photo extends Component<Props, State> {
 
   private streams: any[] = [];
 
-  private photoDescRef = React.createRef<HTMLDivElement>();
-
   private photo: PhotoType = {
     photoData: '',
     photoDesc: '',
+    photoDate: new Date(),
   }
 
   constructor(props: Props) {
     super(props);
     this.state = {
-      // photoStatus: PhotoStatus.capture,
+      photoDesc: '',
     };
   }
 
@@ -128,17 +127,21 @@ export default class Photo extends Component<Props, State> {
     });
   }
 
+  inputHandler = (e: any) => {
+    this.setState({ photoDesc: e.target.value });
+  }
+
   successHandler = () => {
     const { setView, appState } = this.props;
     const { currentUser } = appState;
-    if (this.photoDescRef.current) this.photo.photoDesc = this.photoDescRef.current.innerHTML;
+    const { photoDesc } = this.state;
+    this.photo.photoDesc = photoDesc;
+    this.photo.photoDate = new Date();
     const photo = JSON.parse(JSON.stringify(this.photo));
     photo.userName = currentUser.displayName;
 
     setView(Views.account);
 
-    // const name = new Date();
-    // const metadata = {content}
     addPhoto(currentUser.uid, this.photo, photo);
   }
 
@@ -153,14 +156,16 @@ export default class Photo extends Component<Props, State> {
         canvasStyle.display = 'none';
         videoStyle.display = 'inline';
         photoButtons = (
-          <div
-            className="button"
-            role="button"
-            tabIndex={0}
-            aria-label="Mute volume"
-            onKeyUp={() => this.takePhoto()}
-            onClick={() => this.takePhoto()}
-          />
+          <div className="capture-button">
+            <div
+              className="button"
+              role="button"
+              tabIndex={0}
+              aria-label="Mute volume"
+              onKeyUp={() => this.takePhoto()}
+              onClick={() => this.takePhoto()}
+            />
+          </div>
         );
         break;
       case PhotoStatus.finish:
@@ -214,19 +219,19 @@ export default class Photo extends Component<Props, State> {
         <div className="main">
           <canvas id="canvas" ref={this.videoCanvasRef} style={canvasStyle} />
           <video className="" ref={this.videoRef} style={videoStyle} muted playsInline />
-          {
-            photoStatus === PhotoStatus.finish
-            && (
-              <div>
-                <input
-                  className="photo-description"
-                  placeholder="Photo description"
-                />
-              </div>
-            )
-            // && <div ref={this.photoDescRef} contentEditable className="photo-description" />
-          }
-          <div className="buttons-section">
+          <div>
+            {
+              photoStatus === PhotoStatus.finish
+              && (
+                <div>
+                  <input
+                    className="photo-description"
+                    placeholder="Photo description"
+                    onChange={(e) => this.inputHandler(e)}
+                  />
+                </div>
+              )
+            }
             {photoButtons}
           </div>
         </div>

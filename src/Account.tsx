@@ -13,7 +13,8 @@ type State = {}
 /* eslint-disable no-unused-vars */
 
 enum Views {
-  account = 'ACCOUNT'
+  login = 'LOGIN'
+  , account = 'ACCOUNT'
   , register = 'REGISTER'
   , photo = 'PHOTO'
 }
@@ -24,6 +25,14 @@ export default class Account extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {};
+  }
+
+  signOut = () => {
+    const { setView } = this.props;
+    auth.signOut()
+      .then(() => {
+        setView(Views.login);
+      });
   }
 
   render() {
@@ -69,7 +78,7 @@ export default class Account extends Component<Props, State> {
                 role="button"
                 tabIndex={0}
                 onKeyUp={() => {}}
-                onClick={() => auth.signOut()}
+                onClick={() => this.signOut()}
               >
                 Sign out
               </div>

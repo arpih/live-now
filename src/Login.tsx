@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 // @ts-ignore
 import Translate from 'react-translate-component';
 import { ReactComponent as Logo } from './images/logo.svg';
-// import { ReactComponent as Photo } from './images/photo.svg';
 import { signInWithGoogle, auth, allPhotos } from './firebase/firebase.utils';
 
 type Props = {
@@ -37,7 +36,7 @@ export default class Login extends Component<Props, State> {
     allPhotos()
       .then((photos: any) => {
         const n = 5;
-        const firstPhotos = photos.slice(0, n);
+        const firstPhotos = photos.reverse().slice(0, n);
         this.photos.push(...firstPhotos);
       })
       .then(() => this.setState({ isReady: true }));
@@ -72,8 +71,10 @@ export default class Login extends Component<Props, State> {
     const photosHTML = this.photos
       .map((photo: any) => (
         <div className="photo">
-          <img src={photo.photoData} alt="user" />
-          <div>{photo.userName}</div>
+          <div className="photo-info" style={{ backgroundImage: `url(${photo.photoData})` }}>
+            <div className="photo-desc">{photo.photoDesc}</div>
+            <div className="photo-user">{photo.userName}</div>
+          </div>
         </div>
       ));
 
