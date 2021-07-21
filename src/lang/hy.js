@@ -1,6 +1,7 @@
 export default {
-    loginWelcome: 'Ողջույնnfdsf',
+    loginWelcome: 'Բարի գալուստ',
     loginSignIn: 'Մուտք գործել',
     loginSignOut: 'Դուրս գալ',
-    loginMessage: 'Ցանկանու՞մ եք կիսվել ձեր պահով։'
+    loginMessage: 'Ցանկանու՞մ եք կիսվել ձեր պահով։',
+    photoDesc: 'Ողջույն'
 };
