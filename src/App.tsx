@@ -53,7 +53,7 @@ class App extends React.Component<{}, State> {
                 id: snapShot.id, // eslint-disable-line react/no-unused-state
                 ...snapShot.data(),
               }, () => {
-                this.setView(Views.account);
+                // this.setView(Views.account);
               });
             });
           });

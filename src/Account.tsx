@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-import { ReactComponent as Logo } from './images/logo.svg';
 import { ReactComponent as Photo } from './images/photo.svg';
-import { auth } from './firebase/firebase.utils';
+import Header from './Header';
 
 type Props = {
   appState: any,
   setView: any,
 }
 
-type State = {}
+type State = {
+  showAllPhotos: boolean,
+}
 
 /* eslint-disable no-unused-vars */
 
@@ -24,22 +25,24 @@ enum Views {
 export default class Account extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    this.state = {};
+    this.state = {
+      showAllPhotos: false,
+    };
   }
 
-  signOut = () => {
-    const { setView } = this.props;
-    auth.signOut()
-      .then(() => {
-        setView(Views.login);
-      });
+  handleShowPhotos = () => {
+    const { showAllPhotos } = this.state;
+    this.setState({ showAllPhotos: !showAllPhotos });
   }
 
   render() {
     const { setView, appState } = this.props;
     const { photos, currentUser } = appState;
+    const { showAllPhotos } = this.state;
+    const partOfPhotos: string[] = photos.reverse().slice(0, 6);
+    const photosNeedToShow = showAllPhotos ? photos : partOfPhotos;
 
-    const photosHTML = photos
+    const photosHTML = photosNeedToShow
       .map((photo: any) => (
         <div className="photo">
           <img src={photo.photoData} alt="user" />
@@ -47,44 +50,31 @@ export default class Account extends Component<Props, State> {
         </div>
       ));
 
-    let imgSrc = '';
-    let userName = '';
-    if (currentUser) {
-      imgSrc = currentUser.photoURL;
-      userName = currentUser.displayName;
-    }
+    const links = (showAllPhotos) ? (
+      <div
+        className="link"
+        role="button"
+        tabIndex={0}
+        onKeyUp={() => {}}
+        onClick={() => this.handleShowPhotos()}
+      >
+        Show less
+      </div>
+    ) : (
+      <div
+        className="link"
+        role="button"
+        tabIndex={0}
+        onKeyUp={() => {}}
+        onClick={() => this.handleShowPhotos()}
+      >
+        Show more
+      </div>
+    );
 
     return (
       <div className="account-component">
-        <div className="header">
-          <Logo />
-
-          <div className="header-info">
-            <div className="user-info">
-              <div className="user">
-                <div className="user-photo">
-                  {imgSrc
-                    && (
-                      <img
-                        src={imgSrc}
-                        alt="userPhoto"
-                      />
-                    )}
-                </div>
-                <div>{userName}</div>
-              </div>
-              <div
-                className="register-button"
-                role="button"
-                tabIndex={0}
-                onKeyUp={() => {}}
-                onClick={() => this.signOut()}
-              >
-                Sign out
-              </div>
-            </div>
-          </div>
-        </div>
+        <Header currentUser={currentUser} setView={setView} />
         <div className="main">
           <div className="new-photo-section">
             <div
@@ -101,6 +91,7 @@ export default class Account extends Component<Props, State> {
           <div className="photos-section">
             {photosHTML}
           </div>
+          {links}
         </div>
       </div>
     );

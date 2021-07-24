@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 // @ts-ignore
 import Translate from 'react-translate-component';
-import { ReactComponent as Logo } from './images/logo.svg';
-import { signInWithGoogle, auth, allPhotos } from './firebase/firebase.utils';
+import { ReactComponent as Like } from './images/like.svg';
+import { ReactComponent as Dislike } from './images/dislike.svg';
+import { allPhotos } from './firebase/firebase.utils';
+import Header from './Header';
 
 type Props = {
   appState: any,
@@ -42,31 +44,14 @@ export default class Login extends Component<Props, State> {
       .then(() => this.setState({ isReady: true }));
   }
 
+  like = () => {
+    console.log('hiii');
+  }
+
   render() {
-    const { appState } = this.props;
+    const { appState, setView } = this.props;
     const { currentUser } = appState;
     const { isReady } = this.state;
-    const links = (currentUser) ? (
-      <div
-        className="register-button"
-        role="button"
-        tabIndex={0}
-        onKeyUp={() => {}}
-        onClick={() => auth.signOut()}
-      >
-        <Translate content="loginSignOut" />
-      </div>
-    ) : (
-      <div
-        className="register-button"
-        role="button"
-        tabIndex={0}
-        onKeyUp={signInWithGoogle}
-        onClick={signInWithGoogle}
-      >
-        <Translate content="loginSignIn" />
-      </div>
-    );
 
     const photosHTML = this.photos
       .map((photo: any) => (
@@ -75,18 +60,34 @@ export default class Login extends Component<Props, State> {
             <div className="photo-desc">{photo.photoDesc}</div>
             <div className="photo-user">{photo.userName}</div>
           </div>
+          <div className="reactions">
+            <div
+              className="reaction-button"
+              role="button"
+              tabIndex={0}
+              onKeyUp={() => {}}
+              onClick={() => this.like()}
+            >
+              {photo.reactions ? `${photo.reactions.like ? photo.reactions.like : ''}` : ''}
+              <Like />
+            </div>
+            <div
+              className="reaction-button"
+              role="button"
+              tabIndex={0}
+              onKeyUp={() => {}}
+              onClick={() => this.like()}
+            >
+              {photo.reactions ? `${photo.reactions.dislike ? photo.reactions.dislike : ''}` : ''}
+              <Dislike />
+            </div>
+          </div>
         </div>
       ));
 
     return (
       <div className="login-component">
-        <div className="header">
-          <Logo />
-
-          <div className="register-section">
-            {links}
-          </div>
-        </div>
+        <Header currentUser={currentUser} setView={setView} />
         <Translate content="loginWelcome" component="h1" />
         <div className="main">
           <div className="photos-section">

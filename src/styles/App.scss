@@ -4,33 +4,41 @@
   font-family: 'Andika New Basic', sans-serif;
   text-align: center;
 
-  .login-component, .account-component, .photo-component {
-    width: 45vw;
-    height: 85vh;
-    min-width: 400px;
-    box-shadow: 0 16px 45px #dedcdce8;
-    margin-top: 30px;
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-    .header {
+    svg {
+      width: 100px;
+      height: 100px;
+      #path0 {
+        fill:  #004d8c;
+      }
+      #path1 {
+        fill:  #000;
+        // fill:  #c6467b;
+      }
+    }
+    .info-section {
       display: flex;
-      justify-content: space-between;
       align-items: center;
 
-      svg {
-        width: 100px;
-        height: 100px;
-        #path0 {
-          fill:  #004d8c;
+      .user-info {
+        text-align: right;
+        margin-right: 10px;
+        .user {
+          display: flex;
+          align-items: center;
+          .user-photo {
+            img {
+              width: 30px;
+              height: 30px;
+              margin-right: 10px;
+            }
+          }
         }
-        #path1 {
-          fill:  #000;
-          // fill:  #c6467b;
-        }
-      }
-      .register-section {
-        padding: 20px;
-
-        .register-button {
+        .login-button {
           text-decoration: underline;
           font-size: 20px;
           color: #004d8c;
@@ -38,48 +46,34 @@
           outline: none;
         }
       }
-      .header-info {
-        display: flex;
-        align-items: center;
+    }
+  }
 
-        .user-info {
-          text-align: right;
-          margin-right: 10px;
-          .user {
-            display: flex;
-            align-items: center;
-            .user-photo {
-              img {
-                width: 30px;
-                height: 30px;
-                margin-right: 10px;
-              }
-            }
-          }
-          .register-button {
-            text-decoration: underline;
-            font-size: 20px;
-            color: #004d8c;
-            cursor: pointer;
-            outline: none;
-          }
-        }
-        .additional-info {
-          .lines {
-            outline: none;
-            svg {
-              width: 30px;
-              height: 30px;
-              fill: #004d8c;
-              margin-right: 10px;
-            }
-          }
-        }
+  .login-component, .account-component, .photo-component {
+    width: 45vw;
+    height: 85vh;
+    min-width: 400px;
+    box-shadow: 0 16px 45px #dedcdce8;
+    margin-top: 30px;
+
+    .main {
+      // overflow-y: auto;
+
+      .link {
+        text-decoration: underline;
+        cursor: pointer;
+        outline: none;
+        color: #004d8c;
       }
     }
   }
 
   .login-component{
+    h1 {
+      width: 70%;
+      margin: auto;
+    }
+
     .main {
       display: flex;
       flex-direction: column;
@@ -164,7 +158,40 @@
               text-align: end;
             }
           }
+          .reactions {
+            // display: none;
+            display: flex;
+            justify-content: center;
+
+            .reaction-button {
+              display: flex;
+              align-items: center;
+              cursor: pointer;
+
+              svg {
+                width: 20px;
+                height: 20px;
+                padding: 10px;
+                fill: #004d8c;
+              }
+            }
+          }
         }
+        // .photo:hover {
+        //   background-color: #828282;
+
+        //   .photo-info {
+        //     background-image: none !important;
+        //   }
+        //   .reactions {
+        //     display: inline;
+        //     svg {
+        //       width: 20px;
+        //       height: 20px;
+        //       padding: 10px;
+        //     }
+        //   }
+        // }
       }
     }
   }

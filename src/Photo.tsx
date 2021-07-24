@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { ReactComponent as Logo } from './images/logo.svg';
 import { ReactComponent as Success } from './images/success.svg';
 import { ReactComponent as Fail } from './images/fail.svg';
-import { auth, addPhoto } from './firebase/firebase.utils';
+import { addPhoto } from './firebase/firebase.utils';
+import Header from './Header';
 
 const videoResolution = { width: 300, height: 300 };
 
@@ -139,6 +139,10 @@ export default class Photo extends Component<Props, State> {
     this.photo.photoDate = new Date();
     const photo = JSON.parse(JSON.stringify(this.photo));
     photo.userName = currentUser.displayName;
+    photo.reactions = {
+      like: 0,
+      dislike: 0,
+    };
 
     setView(Views.account);
 
@@ -146,6 +150,8 @@ export default class Photo extends Component<Props, State> {
   }
 
   render() {
+    const { setView, appState } = this.props;
+    const { currentUser } = appState;
     const { photoStatus } = this.state;
     let photoButtons: any;
     const videoStyle: any = {};
@@ -199,23 +205,7 @@ export default class Photo extends Component<Props, State> {
 
     return (
       <div className="photo-component">
-        <div className="header">
-          <Logo />
-
-          <div className="header-info">
-            <div className="user-info">
-              <div
-                className="register-button"
-                role="button"
-                tabIndex={0}
-                onKeyUp={() => auth.signOut()}
-                onClick={() => auth.signOut()}
-              >
-                Sign out
-              </div>
-            </div>
-          </div>
-        </div>
+        <Header currentUser={currentUser} setView={setView} />
         <div className="main">
           <canvas id="canvas" ref={this.videoCanvasRef} style={canvasStyle} />
           <video className="" ref={this.videoRef} style={videoStyle} muted playsInline />
