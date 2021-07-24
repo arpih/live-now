@@ -1,3 +1,20 @@
+.language-section {
+  text-align: end;
+
+  select {
+    color: #d34237;
+    outline: none;
+
+    option {
+      color: #004d8c;
+    }
+
+    option:checked {
+      color: #d34237;
+    }
+  }
+}
+
 .App {
   display: flex;
   justify-content: center;

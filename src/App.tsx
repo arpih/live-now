@@ -79,10 +79,12 @@ class App extends React.Component<{}, State> {
     const { lang } = this.state;
     return (
       <>
-        <select value={lang} onChange={(e) => this.setLang(e)}>
-          <option value="en">EN</option>
-          <option value="am">AM</option>
-        </select>
+        <div className="language-section">
+          <select value={lang} onChange={(e) => this.setLang(e)}>
+            <option value="en">EN</option>
+            <option value="am">AM</option>
+          </select>
+        </div>
         <ViewController
           appState={this.state}
           setView={(view: Views) => {
