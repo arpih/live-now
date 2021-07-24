@@ -176,7 +176,6 @@
             }
           }
           .reactions {
-            // display: none;
             display: flex;
             justify-content: center;
 
@@ -184,31 +183,21 @@
               display: flex;
               align-items: center;
               cursor: pointer;
+              outline: none;
+
+              .count {
+                position: absolute;
+              }
 
               svg {
                 width: 20px;
                 height: 20px;
-                padding: 10px;
+                padding: 15px;
                 fill: #004d8c;
               }
             }
           }
         }
-        // .photo:hover {
-        //   background-color: #828282;
-
-        //   .photo-info {
-        //     background-image: none !important;
-        //   }
-        //   .reactions {
-        //     display: inline;
-        //     svg {
-        //       width: 20px;
-        //       height: 20px;
-        //       padding: 10px;
-        //     }
-        //   }
-        // }
       }
     }
   }

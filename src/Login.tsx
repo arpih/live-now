@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 // @ts-ignore
 import Translate from 'react-translate-component';
 import { ReactComponent as Like } from './images/like.svg';
+import { ReactComponent as ActiveLike } from './images/active-like.svg';
 import { ReactComponent as Dislike } from './images/dislike.svg';
-import { allPhotos } from './firebase/firebase.utils';
+import { ReactComponent as ActiveDislike } from './images/active-dislike.svg';
+import { allPhotos, deletePhoto, addReaction } from './firebase/firebase.utils';
 import Header from './Header';
 
 type Props = {
@@ -13,6 +15,7 @@ type Props = {
 
 type State = {
   isReady: boolean,
+  loading: boolean,
 }
 
 /* eslint-disable no-unused-vars */
@@ -31,6 +34,7 @@ export default class Login extends Component<Props, State> {
     super(props);
     this.state = {
       isReady: false,
+      loading: false, // eslint-disable-line react/no-unused-state
     };
   }
 
@@ -44,14 +48,79 @@ export default class Login extends Component<Props, State> {
       .then(() => this.setState({ isReady: true }));
   }
 
-  like = () => {
-    console.log('hiii');
+  like = (reaction: string, photo: any) => {
+    const { appState } = this.props;
+    const { currentUser } = appState;
+
+    if (!currentUser) return;
+
+    this.setState({ loading: true }); // eslint-disable-line react/no-unused-state
+
+    deletePhoto(photo);
+
+    const { reactions } = photo;
+    let existingUser: any = {};
+    let arr = [];
+    if (reactions) existingUser = reactions.find((user: any) => user.uid === currentUser.uid);
+    if (reactions) arr = reactions.filter((user: any) => user.uid !== currentUser.uid);
+    if (existingUser) {
+      if (reaction === 'like') {
+        if (existingUser.like === 1) {
+          existingUser.like = 0;
+        } else {
+          existingUser.like = 1;
+        }
+        existingUser.dislike = 0;
+      } else {
+        if (existingUser.dislike === 1) {
+          existingUser.dislike = 0;
+        } else {
+          existingUser.dislike = 1;
+        }
+        existingUser.like = 0;
+      }
+      arr.push(existingUser);
+    } else {
+      const user:any = {
+        uid: currentUser.uid,
+        like: reaction === 'like' ? 1 : 0,
+        dislike: reaction === 'dislike' ? 1 : 0,
+      };
+      reactions.push(user);
+    }
+    addReaction(photo);
+    this.setState({ loading: false }); // eslint-disable-line react/no-unused-state
   }
 
   render() {
     const { appState, setView } = this.props;
     const { currentUser } = appState;
     const { isReady } = this.state;
+
+    const userReactions = (reactions: any, reaction: string): number => {
+      let like = 0;
+      let dislike = 0;
+      reactions.forEach((el: any) => {
+        like += el.like;
+        dislike += el.dislike;
+      });
+      const count = (reaction === 'like') ? like : dislike;
+
+      return count;
+    };
+
+    const activeReaction = (photo: any, reaction: string): boolean => {
+      if (!currentUser) return false;
+
+      const { reactions } = photo;
+      let existingUser: any = {};
+
+      if (reactions) existingUser = reactions.find((user: any) => user.uid === currentUser.uid);
+
+      const isActive = (reaction === 'like') ? existingUser.like : existingUser.dislike;
+
+      return isActive;
+    };
 
     const photosHTML = this.photos
       .map((photo: any) => (
@@ -65,21 +134,25 @@ export default class Login extends Component<Props, State> {
               className="reaction-button"
               role="button"
               tabIndex={0}
-              onKeyUp={() => {}}
-              onClick={() => this.like()}
+              onKeyUp={() => this.like('like', photo)}
+              onClick={() => this.like('like', photo)}
             >
-              {photo.reactions ? `${photo.reactions.like ? photo.reactions.like : ''}` : ''}
-              <Like />
+              <div className="count">
+                {photo.reactions ? `${userReactions(photo.reactions, 'like') ? userReactions(photo.reactions, 'like') : ''}` : ''}
+              </div>
+              {activeReaction(photo, 'like') ? <ActiveLike /> : <Like />}
             </div>
             <div
               className="reaction-button"
               role="button"
               tabIndex={0}
-              onKeyUp={() => {}}
-              onClick={() => this.like()}
+              onKeyUp={() => this.like('dislike', photo)}
+              onClick={() => this.like('dislike', photo)}
             >
-              {photo.reactions ? `${photo.reactions.dislike ? photo.reactions.dislike : ''}` : ''}
-              <Dislike />
+              <div className="count">
+                {photo.reactions ? `${userReactions(photo.reactions, 'dislike') ? userReactions(photo.reactions, 'dislike') : ''}` : ''}
+              </div>
+              {activeReaction(photo, 'dislike') ? <ActiveDislike /> : <Dislike />}
             </div>
           </div>
         </div>

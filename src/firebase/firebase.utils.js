@@ -71,6 +71,18 @@ export const addPhoto = (userId, objectsToAdd, photo) => {
   });
 };
 
+export const deletePhoto = (objectsToDelete) => {
+  firestore.collection('users').doc('allPhotos').update({
+    photos: firebase.firestore.FieldValue.arrayRemove(objectsToDelete),
+  });
+};
+
+export const addReaction = (objectsToAdd) => {
+  firestore.collection('users').doc('allPhotos').update({
+    photos: firebase.firestore.FieldValue.arrayUnion(objectsToAdd),
+  });
+};
+
 const provider = new firebase.auth.GoogleAuthProvider();
 provider.setCustomParameters({ promt: 'select_account' });
 export const signInWithGoogle = () => auth.signInWithPopup(provider);

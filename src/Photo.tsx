@@ -139,10 +139,7 @@ export default class Photo extends Component<Props, State> {
     this.photo.photoDate = new Date();
     const photo = JSON.parse(JSON.stringify(this.photo));
     photo.userName = currentUser.displayName;
-    photo.reactions = {
-      like: 0,
-      dislike: 0,
-    };
+    photo.reactions = [];
 
     setView(Views.account);
 
