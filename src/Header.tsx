@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 // @ts-ignore
 import Translate from 'react-translate-component';
 import { ReactComponent as Logo } from './images/logo.svg';
+import { ReactComponent as Back } from './images/back.svg';
 import { signInWithGoogle, auth } from './firebase/firebase.utils';
 
 type Props = {
-  currentUser: any,
+  appState: any,
   setView: any,
 }
 
@@ -14,7 +15,6 @@ type Props = {
 enum Views {
   login = 'LOGIN'
   , account = 'ACCOUNT'
-  , register = 'REGISTER'
   , photo = 'PHOTO'
 }
 
@@ -34,8 +34,14 @@ export default class Header extends Component<Props> {
       });
   }
 
+  goToMainProfile = () => {
+    const { setView } = this.props;
+    setView(Views.login);
+  }
+
   render() {
-    const { currentUser } = this.props;
+    const { appState } = this.props;
+    const { view, currentUser } = appState;
     let imgSrc = '';
     let userName = '';
     if (currentUser) {
@@ -66,7 +72,19 @@ export default class Header extends Component<Props> {
 
     return (
       <div className="header">
-        <Logo />
+        {view !== 'LOGIN' ? (
+          <div
+            className="back-button"
+            role="button"
+            tabIndex={0}
+            onKeyUp={() => this.goToMainProfile()}
+            onClick={() => this.goToMainProfile()}
+          >
+            <Back className="back" />
+          </div>
+        ) : (
+          <Logo className="logo" />
+        )}
         <div className="info-section">
           <div className="user-info">
             <div className="user">
@@ -83,7 +101,7 @@ export default class Header extends Component<Props> {
                 className="login-button"
                 role="button"
                 tabIndex={0}
-                onKeyUp={() => {}}
+                onKeyUp={() => this.goToUserProfile()}
                 onClick={() => this.goToUserProfile()}
               >
                 {userName}

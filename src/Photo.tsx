@@ -148,7 +148,6 @@ export default class Photo extends Component<Props, State> {
 
   render() {
     const { setView, appState } = this.props;
-    const { currentUser } = appState;
     const { photoStatus } = this.state;
     let photoButtons: any;
     const videoStyle: any = {};
@@ -202,7 +201,7 @@ export default class Photo extends Component<Props, State> {
 
     return (
       <div className="photo-component">
-        <Header currentUser={currentUser} setView={setView} />
+        <Header appState={appState} setView={setView} />
         <div className="main">
           <canvas id="canvas" ref={this.videoCanvasRef} style={canvasStyle} />
           <video className="" ref={this.videoRef} style={videoStyle} muted playsInline />

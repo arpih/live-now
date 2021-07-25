@@ -16,15 +16,20 @@
 }
 
 .ReactModal__Content--after-open {
-  width: 50% !important;
+  width: 500px !important;
+  height: 500px !important;
   margin: auto !important;
 
   .close-button {
     text-align: end;
     outline: none;
+    margin: -25px -25px 25px;
 
     svg {
       #Ebene_1-2 {
+        #Layer {
+          fill: #004d8c;
+        }
         #Layer:nth-child(1) {
           fill: #fff;
         }
@@ -71,7 +76,20 @@
     justify-content: space-between;
     align-items: center;
 
-    svg {
+    .back-button {
+      outline: none;
+
+      svg.back {
+        width: 30px;
+        height: 30px;
+  
+        #Chevron_Right {
+          fill: #004d8c;
+        }
+      }
+    }
+
+    svg.logo {
       width: 100px;
       height: 100px;
       #path0 {

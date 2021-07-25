@@ -63,7 +63,7 @@ export default class Account extends Component<Props, State> {
 
   render() {
     const { setView, appState } = this.props;
-    const { photos, currentUser } = appState;
+    const { photos } = appState;
     const { showAllPhotos, showPhoto, imgData } = this.state;
     const partOfPhotos: string[] = photos.reverse().slice(0, 6);
     const photosNeedToShow = showAllPhotos ? photos : partOfPhotos;
@@ -118,7 +118,7 @@ export default class Account extends Component<Props, State> {
 
     return (
       <div className="account-component">
-        <Header currentUser={currentUser} setView={setView} />
+        <Header appState={appState} setView={setView} />
         <div>
           <Modal isOpen={showPhoto} onRequestClose={this.closeModal}>
             <div
