@@ -16,6 +16,7 @@ type State = {
   showAllPhotos: boolean,
   showPhoto: boolean,
   imgData: string,
+  imgDesc: string,
 }
 
 /* eslint-disable no-unused-vars */
@@ -38,6 +39,7 @@ export default class Account extends Component<Props, State> {
       showAllPhotos: false,
       showPhoto: false,
       imgData: '',
+      imgDesc: '',
     };
   }
 
@@ -53,8 +55,12 @@ export default class Account extends Component<Props, State> {
     this.setState({ showAllPhotos: !showAllPhotos });
   }
 
-  showPhoto = (imgData: string) => {
-    this.setState({ showPhoto: true, imgData });
+  showPhoto = (photo: any) => {
+    this.setState({
+      showPhoto: true,
+      imgData: photo.photoData,
+      imgDesc: photo.photoDesc,
+    });
   }
 
   closeModal = () => {
@@ -64,7 +70,12 @@ export default class Account extends Component<Props, State> {
   render() {
     const { setView, appState } = this.props;
     const { photos } = appState;
-    const { showAllPhotos, showPhoto, imgData } = this.state;
+    const {
+      showAllPhotos,
+      showPhoto,
+      imgData,
+      imgDesc,
+    } = this.state;
     const partOfPhotos: string[] = photos.reverse().slice(0, 6);
     const photosNeedToShow = showAllPhotos ? photos : partOfPhotos;
 
@@ -74,8 +85,8 @@ export default class Account extends Component<Props, State> {
           className="photo"
           role="button"
           tabIndex={0}
-          onKeyUp={() => this.showPhoto(photo.photoData)}
-          onClick={() => this.showPhoto(photo.photoData)}
+          onKeyUp={() => this.showPhoto(photo)}
+          onClick={() => this.showPhoto(photo)}
         >
           <img src={photo.photoData} alt="user" />
         </div>
@@ -131,6 +142,7 @@ export default class Account extends Component<Props, State> {
               <Close />
             </div>
             <div className="image-section">
+              <div>{imgDesc}</div>
               <img src={imgData} alt="user" />
               {data && data.reactions && (
                 <div className="reactions">
