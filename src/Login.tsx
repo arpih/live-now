@@ -48,7 +48,7 @@ export default class Login extends Component<Props, State> {
       .then(() => this.setState({ isReady: true }));
   }
 
-  like = (reaction: string, photo: any) => {
+  handleUserReaction = (reaction: string, photo: any) => {
     const { appState } = this.props;
     const { currentUser } = appState;
 
@@ -117,6 +117,8 @@ export default class Login extends Component<Props, State> {
 
       if (reactions) existingUser = reactions.find((user: any) => user.uid === currentUser.uid);
 
+      if (!existingUser) return false;
+
       const isActive = (reaction === 'like') ? existingUser.like : existingUser.dislike;
 
       return isActive;
@@ -134,8 +136,8 @@ export default class Login extends Component<Props, State> {
               className="reaction-button"
               role="button"
               tabIndex={0}
-              onKeyUp={() => this.like('like', photo)}
-              onClick={() => this.like('like', photo)}
+              onKeyUp={() => this.handleUserReaction('like', photo)}
+              onClick={() => this.handleUserReaction('like', photo)}
             >
               <div className="count">
                 {photo.reactions ? `${userReactions(photo.reactions, 'like') ? userReactions(photo.reactions, 'like') : ''}` : ''}
@@ -146,8 +148,8 @@ export default class Login extends Component<Props, State> {
               className="reaction-button"
               role="button"
               tabIndex={0}
-              onKeyUp={() => this.like('dislike', photo)}
-              onClick={() => this.like('dislike', photo)}
+              onKeyUp={() => this.handleUserReaction('dislike', photo)}
+              onClick={() => this.handleUserReaction('dislike', photo)}
             >
               <div className="count">
                 {photo.reactions ? `${userReactions(photo.reactions, 'dislike') ? userReactions(photo.reactions, 'dislike') : ''}` : ''}
