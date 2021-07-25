@@ -15,6 +15,51 @@
   }
 }
 
+.ReactModal__Content--after-open {
+  width: 50% !important;
+  margin: auto !important;
+
+  .close-button {
+    text-align: end;
+    outline: none;
+
+    svg {
+      #Ebene_1-2 {
+        #Layer:nth-child(1) {
+          fill: #fff;
+        }
+      }
+    }
+  }
+
+  .image-section {
+    text-align: center;
+
+    .reactions {
+      display: flex;
+      justify-content: center;
+
+      .reaction-button {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        outline: none;
+
+        .count {
+          position: absolute;
+        }
+
+        svg {
+          width: 20px;
+          height: 20px;
+          padding: 15px;
+          fill: #004d8c;
+        }
+      }
+    }
+  }
+}
+
 .App {
   display: flex;
   justify-content: center;
@@ -74,8 +119,6 @@
     margin-top: 30px;
 
     .main {
-      // overflow-y: auto;
-
       .link {
         text-decoration: underline;
         cursor: pointer;
@@ -147,6 +190,7 @@
 
         .photo {
           padding: 10px;
+          outline: none;
           img, .photo-info {
             border-radius: 10px;
             box-shadow: 0px 3px 6px #333333;;

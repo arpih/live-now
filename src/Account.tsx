@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
+import Modal from 'react-modal';
 import { ReactComponent as Photo } from './images/photo.svg';
+import { ReactComponent as Close } from './images/fail.svg';
+import { ReactComponent as Like } from './images/like.svg';
+import { ReactComponent as Dislike } from './images/dislike.svg';
 import Header from './Header';
+import { allPhotos } from './firebase/firebase.utils';
 
 type Props = {
   appState: any,
@@ -9,6 +14,8 @@ type Props = {
 
 type State = {
   showAllPhotos: boolean,
+  showPhoto: boolean,
+  imgData: string,
 }
 
 /* eslint-disable no-unused-vars */
@@ -23,11 +30,22 @@ enum Views {
 /* eslint-enable no-unused-vars */
 
 export default class Account extends Component<Props, State> {
+  private photos: any = [];
+
   constructor(props: Props) {
     super(props);
     this.state = {
       showAllPhotos: false,
+      showPhoto: false,
+      imgData: '',
     };
+  }
+
+  componentDidMount() {
+    allPhotos()
+      .then((photos: any) => {
+        this.photos.push(...photos);
+      });
   }
 
   handleShowPhotos = () => {
@@ -35,18 +53,31 @@ export default class Account extends Component<Props, State> {
     this.setState({ showAllPhotos: !showAllPhotos });
   }
 
+  showPhoto = (imgData: string) => {
+    this.setState({ showPhoto: true, imgData });
+  }
+
+  closeModal = () => {
+    this.setState({ showPhoto: false });
+  };
+
   render() {
     const { setView, appState } = this.props;
     const { photos, currentUser } = appState;
-    const { showAllPhotos } = this.state;
+    const { showAllPhotos, showPhoto, imgData } = this.state;
     const partOfPhotos: string[] = photos.reverse().slice(0, 6);
     const photosNeedToShow = showAllPhotos ? photos : partOfPhotos;
 
     const photosHTML = photosNeedToShow
       .map((photo: any) => (
-        <div className="photo">
+        <div
+          className="photo"
+          role="button"
+          tabIndex={0}
+          onKeyUp={() => this.showPhoto(photo.photoData)}
+          onClick={() => this.showPhoto(photo.photoData)}
+        >
           <img src={photo.photoData} alt="user" />
-          <div>{photo.photoDesc}</div>
         </div>
       ));
 
@@ -72,9 +103,54 @@ export default class Account extends Component<Props, State> {
       </div>
     );
 
+    const data = this.photos.find((photo: any) => photo.photoData === imgData);
+    const userReactions = (reaction: string): number => {
+      let like = 0;
+      let dislike = 0;
+      data.reactions.forEach((el: any) => {
+        like += el.like;
+        dislike += el.dislike;
+      });
+      const count = (reaction === 'like') ? like : dislike;
+
+      return count;
+    };
+
     return (
       <div className="account-component">
         <Header currentUser={currentUser} setView={setView} />
+        <div>
+          <Modal isOpen={showPhoto} onRequestClose={this.closeModal}>
+            <div
+              className="close-button"
+              role="button"
+              tabIndex={0}
+              onKeyUp={() => this.closeModal()}
+              onClick={() => this.closeModal()}
+            >
+              <Close />
+            </div>
+            <div className="image-section">
+              <img src={imgData} alt="user" />
+              {data && data.reactions && (
+                <div className="reactions">
+                  <div className="reaction-button">
+                    <div className="count">
+                      {`${userReactions('like') ? userReactions('like') : ''}`}
+                    </div>
+                    <Like />
+                  </div>
+                  <div className="reaction-button">
+                    <div className="count">
+                      {`${userReactions('dislike') ? userReactions('dislike') : ''}`}
+                    </div>
+                    <Dislike />
+                  </div>
+                </div>
+              )}
+            </div>
+          </Modal>
+        </div>
         <div className="main">
           <div className="new-photo-section">
             <div
