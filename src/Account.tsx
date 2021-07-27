@@ -200,7 +200,7 @@ export default class Account extends Component<Props, State> {
           <div className="photos-section">
             {photosHTML}
           </div>
-          {links}
+          {photos.length > 6 && links}
         </div>
       </div>
     );
