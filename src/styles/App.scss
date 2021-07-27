@@ -47,8 +47,6 @@
       .reaction-button {
         display: flex;
         align-items: center;
-        cursor: pointer;
-        outline: none;
 
         .count {
           position: absolute;
@@ -61,6 +59,13 @@
           fill: #004d8c;
         }
       }
+    }
+
+    .link {
+      text-decoration: underline;
+      cursor: pointer;
+      outline: none;
+      color: #d34237;
     }
   }
 }

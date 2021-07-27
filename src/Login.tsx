@@ -5,7 +5,7 @@ import { ReactComponent as Like } from './images/like.svg';
 import { ReactComponent as ActiveLike } from './images/active-like.svg';
 import { ReactComponent as Dislike } from './images/dislike.svg';
 import { ReactComponent as ActiveDislike } from './images/active-dislike.svg';
-import { allPhotos, deletePhoto, addReaction } from './firebase/firebase.utils';
+import { allPhotos, deletePublicPhoto, addReaction } from './firebase/firebase.utils';
 import Header from './Header';
 
 type Props = {
@@ -56,7 +56,7 @@ export default class Login extends Component<Props, State> {
 
     this.setState({ loading: true }); // eslint-disable-line react/no-unused-state
 
-    deletePhoto(photo);
+    deletePublicPhoto(photo);
 
     const { reactions } = photo;
     let existingUser: any = {};

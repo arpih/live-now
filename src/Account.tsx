@@ -5,7 +5,7 @@ import { ReactComponent as Close } from './images/fail.svg';
 import { ReactComponent as Like } from './images/like.svg';
 import { ReactComponent as Dislike } from './images/dislike.svg';
 import Header from './Header';
-import { allPhotos } from './firebase/firebase.utils';
+import { allPhotos, deletePrivatePhoto, deletePublicPhoto } from './firebase/firebase.utils';
 
 type Props = {
   appState: any,
@@ -66,6 +66,17 @@ export default class Account extends Component<Props, State> {
   closeModal = () => {
     this.setState({ showPhoto: false });
   };
+
+  deletePhoto = () => {
+    const { appState } = this.props;
+    const { currentUser, photos } = appState;
+    const { imgData } = this.state;
+    const privatePhoto = photos.find((photo: any) => photo.photoData === imgData);
+    const publicPhoto = this.photos.find((photo: any) => photo.photoData === imgData);
+    deletePrivatePhoto(currentUser.uid, privatePhoto);
+    deletePublicPhoto(publicPhoto);
+    this.closeModal();
+  }
 
   render() {
     const { setView, appState } = this.props;
@@ -160,6 +171,16 @@ export default class Account extends Component<Props, State> {
                   </div>
                 </div>
               )}
+              <div
+                className="link"
+                role="button"
+                tabIndex={0}
+                onKeyUp={() => this.deletePhoto()}
+                onClick={() => this.deletePhoto()}
+              >
+                Delete photo
+              </div>
+
             </div>
           </Modal>
         </div>

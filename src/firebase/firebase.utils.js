@@ -71,7 +71,13 @@ export const addPhoto = (userId, objectsToAdd, photo) => {
   });
 };
 
-export const deletePhoto = (objectsToDelete) => {
+export const deletePrivatePhoto = (userId, objectsToDelete) => {
+  firestore.collection('users').doc(userId).update({
+    photos: firebase.firestore.FieldValue.arrayRemove(objectsToDelete),
+  });
+};
+
+export const deletePublicPhoto = (objectsToDelete) => {
   firestore.collection('users').doc('allPhotos').update({
     photos: firebase.firestore.FieldValue.arrayRemove(objectsToDelete),
   });
