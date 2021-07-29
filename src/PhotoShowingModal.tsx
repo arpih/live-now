@@ -13,7 +13,7 @@ type Props = {
   deletePhoto: any,
 }
 
-export default class Account extends Component<Props> {
+export default class PhotoShowingModal extends Component<Props> {
   render() {
     const {
       showPhoto,

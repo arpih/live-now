@@ -68,6 +68,70 @@
       color: #d34237;
     }
   }
+
+  .photo-capturing-component {
+    text-align: center;
+    canvas, video, .photo-description {
+      border-radius: 10px;
+      box-shadow: 0px 3px 6px #333333;;
+    }
+
+    .photo-description {
+      width: 300px;
+      text-align: center;
+      height: 30px;
+    }
+
+    .capture-button {
+      position: relative;
+
+      .button {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        background-color: #fff;
+        border-radius: 50%;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto auto 15px;
+        border: 2px white;
+        outline: none;
+      }
+      .button:after {
+        content: '';
+        border-radius: 50%;
+        border: 2px solid #004d8c;
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        bottom: 6px;
+        right: 6px;
+      }
+    }
+
+    .result-buttons {
+      display: flex;
+      justify-content: center;
+
+      div {
+        cursor: pointer;
+        outline: none;
+
+        svg {
+          width: 40px;
+          height: 40px;
+          margin: 10px;
+        }
+        .fail-icon {
+          path.shp0 {
+            fill: #d34237;
+          }
+        }
+      }
+    }
+  }
 }
 
 .App {
@@ -261,71 +325,6 @@
                 padding: 15px;
                 fill: #004d8c;
               }
-            }
-          }
-        }
-      }
-    }
-  }
-  
-  .photo-component {
-    .main {
-      canvas, video, .photo-description {
-        border-radius: 10px;
-        box-shadow: 0px 3px 6px #333333;;
-      }
-
-      .photo-description {
-        width: 300px;
-        text-align: center;
-        height: 30px;
-      }
-
-      .capture-button {
-        position: relative;
-
-        .button {
-          position: absolute;
-          width: 40px;
-          height: 40px;
-          background-color: #fff;
-          border-radius: 50%;
-          top: 0;
-          right: 0;
-          bottom: 0;
-          left: 0;
-          margin: auto auto 15px;
-          border: 2px white;
-          outline: none;
-        }
-        .button:after {
-          content: '';
-          border-radius: 50%;
-          border: 2px solid #004d8c;
-          position: absolute;
-          top: 6px;
-          left: 6px;
-          bottom: 6px;
-          right: 6px;
-        }
-      }
-
-      .result-buttons {
-        display: flex;
-        justify-content: center;
-
-        div {
-          cursor: pointer;
-          outline: none;
-
-          svg {
-            width: 40px;
-            height: 40px;
-            margin: 10px;
-          }
-          .fail-icon {
-            path.shp0 {
-              fill: #d34237;
             }
           }
         }

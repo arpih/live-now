@@ -15,7 +15,6 @@ type Props = {
 enum Views {
   login = 'LOGIN'
   , account = 'ACCOUNT'
-  , photo = 'PHOTO'
 }
 
 /* eslint-enable no-unused-vars */

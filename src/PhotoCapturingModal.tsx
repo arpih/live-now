@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-import { ReactComponent as Success } from './images/success.svg';
+import Modal from 'react-modal';
 import { ReactComponent as Fail } from './images/fail.svg';
+import { ReactComponent as Success } from './images/success.svg';
 import { addPhoto } from './firebase/firebase.utils';
-import Header from './Header';
 
 const videoResolution = { width: 300, height: 300 };
 
 type Props = {
   appState: any,
-  setView: any,
+  photoCapturingModal: boolean,
+  closePhotoCapturingModal: any,
 }
 
 type State = {
@@ -37,7 +38,7 @@ enum PhotoStatus {
 
 /* eslint-enable no-unused-vars */
 
-export default class Photo extends Component<Props, State> {
+export default class PhotoCapturingModal extends Component<Props, State> {
   private videoRef = React.createRef<HTMLVideoElement>();
 
   private videoCanvasRef = React.createRef<HTMLCanvasElement>();
@@ -57,12 +58,6 @@ export default class Photo extends Component<Props, State> {
     this.state = {
       photoDesc: '',
     };
-  }
-
-  componentDidMount() {
-    this.video = this.videoRef.current as any;
-
-    this.showVideo();
   }
 
   showVideo = () => {
@@ -132,7 +127,7 @@ export default class Photo extends Component<Props, State> {
   }
 
   successHandler = () => {
-    const { setView, appState } = this.props;
+    const { appState, closePhotoCapturingModal } = this.props;
     const { currentUser } = appState;
     const { photoDesc } = this.state;
     this.photo.photoDesc = photoDesc;
@@ -141,13 +136,18 @@ export default class Photo extends Component<Props, State> {
     photo.userName = currentUser.displayName;
     photo.reactions = [];
 
-    setView(Views.account);
+    closePhotoCapturingModal();
 
     addPhoto(currentUser.uid, this.photo, photo);
   }
 
+  start = () => {
+    this.video = this.videoRef.current as any;
+    this.showVideo();
+  }
+
   render() {
-    const { setView, appState } = this.props;
+    const { photoCapturingModal, closePhotoCapturingModal } = this.props;
     const { photoStatus } = this.state;
     let photoButtons: any;
     const videoStyle: any = {};
@@ -200,15 +200,26 @@ export default class Photo extends Component<Props, State> {
     }
 
     return (
-      <div className="photo-component">
-        <Header appState={appState} setView={setView} />
-        <div className="main">
-          <canvas id="canvas" ref={this.videoCanvasRef} style={canvasStyle} />
-          <video className="" ref={this.videoRef} style={videoStyle} muted playsInline />
-          <div>
-            {
-              photoStatus === PhotoStatus.finish
-              && (
+      <div>
+        <Modal
+          isOpen={photoCapturingModal}
+          onAfterOpen={this.start}
+          onRequestClose={closePhotoCapturingModal}
+        >
+          <div
+            className="close-button"
+            role="button"
+            tabIndex={0}
+            onKeyUp={() => closePhotoCapturingModal()}
+            onClick={() => closePhotoCapturingModal()}
+          >
+            <Fail />
+          </div>
+          <div className="photo-capturing-component">
+            <canvas id="canvas" ref={this.videoCanvasRef} style={canvasStyle} />
+            <video className="" ref={this.videoRef} style={videoStyle} muted playsInline />
+            <div>
+              {photoStatus === PhotoStatus.finish && (
                 <div>
                   <input
                     className="photo-description"
@@ -216,11 +227,11 @@ export default class Photo extends Component<Props, State> {
                     onChange={(e) => this.inputHandler(e)}
                   />
                 </div>
-              )
-            }
-            {photoButtons}
+              )}
+              {photoButtons}
+            </div>
           </div>
-        </div>
+        </Modal>
       </div>
     );
   }

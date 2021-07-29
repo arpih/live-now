@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { ReactComponent as Photo } from './images/photo.svg';
 import Header from './Header';
 import PhotoShowingModal from './PhotoShowingModal';
+import PhotoCapturingModal from './PhotoCapturingModal';
 import { allPhotos, deletePrivatePhoto, deletePublicPhoto } from './firebase/firebase.utils';
 
 type Props = {
@@ -14,18 +15,8 @@ type State = {
   showPhoto: boolean,
   imgData: string,
   imgDesc: string,
+  photoCapturingModal: boolean,
 }
-
-/* eslint-disable no-unused-vars */
-
-enum Views {
-  login = 'LOGIN'
-  , account = 'ACCOUNT'
-  , register = 'REGISTER'
-  , photo = 'PHOTO'
-}
-
-/* eslint-enable no-unused-vars */
 
 export default class Account extends Component<Props, State> {
   private photos: any = [];
@@ -37,6 +28,7 @@ export default class Account extends Component<Props, State> {
       showPhoto: false,
       imgData: '',
       imgDesc: '',
+      photoCapturingModal: false,
     };
   }
 
@@ -75,6 +67,14 @@ export default class Account extends Component<Props, State> {
     this.closeModal();
   }
 
+  showPhotoCapturingModal = () => {
+    this.setState({ photoCapturingModal: true });
+  }
+
+  closePhotoCapturingModal = () => {
+    this.setState({ photoCapturingModal: false });
+  }
+
   render() {
     const { setView, appState } = this.props;
     const { photos } = appState;
@@ -83,6 +83,7 @@ export default class Account extends Component<Props, State> {
       showPhoto,
       imgData,
       imgDesc,
+      photoCapturingModal,
     } = this.state;
     const partOfPhotos: string[] = photos.reverse().slice(0, 6);
     const photosNeedToShow = showAllPhotos ? photos : partOfPhotos;
@@ -135,14 +136,19 @@ export default class Account extends Component<Props, State> {
           closeModal={this.closeModal}
           deletePhoto={this.deletePhoto}
         />
+        <PhotoCapturingModal
+          appState={appState}
+          photoCapturingModal={photoCapturingModal}
+          closePhotoCapturingModal={this.closePhotoCapturingModal}
+        />
         <div className="main">
           <div className="new-photo-section">
             <div
               className="new-photo-button"
               role="button"
               tabIndex={0}
-              onKeyUp={() => setView(Views.photo)}
-              onClick={() => setView(Views.photo)}
+              onKeyUp={() => this.showPhotoCapturingModal()}
+              onClick={() => this.showPhotoCapturingModal()}
             >
               <Photo />
             </div>

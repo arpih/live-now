@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import Login from './Login';
 import Account from './Account';
-import Register from './Register';
-import Photo from './Photo';
 
 type ViewControllerProps = {
   appState: any,
@@ -14,8 +12,6 @@ type ViewControllerProps = {
 enum Views {
   login = 'LOGIN'
   , account = 'ACCOUNT'
-  , register = 'REGISTER'
-  , photo = 'PHOTO'
 }
 
 /* eslint-enable no-unused-vars */
@@ -39,24 +35,6 @@ export default class ViewController extends Component<ViewControllerProps> {
       case Views.account:
         viewDiv = (
           <Account
-            setView={setView}
-            appState={appState}
-          />
-        );
-        break;
-
-      case Views.register:
-        viewDiv = (
-          <Register
-            setView={setView}
-            appState={appState}
-          />
-        );
-        break;
-
-      case Views.photo:
-        viewDiv = (
-          <Photo
             setView={setView}
             appState={appState}
           />

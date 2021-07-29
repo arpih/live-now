@@ -24,8 +24,6 @@ type State = {
 enum Views {
   login = 'LOGIN'
   , account = 'ACCOUNT'
-  , register = 'REGISTER'
-  , photo = 'PHOTO'
 }
 
 /* eslint-enable no-unused-vars */
