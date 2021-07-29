@@ -72,7 +72,12 @@ export default class Account extends Component<Props, State> {
   }
 
   closePhotoCapturingModal = () => {
-    this.setState({ photoCapturingModal: false });
+    this.photos = [];
+    allPhotos()
+      .then((photos: any) => {
+        this.photos.push(...photos);
+        this.setState({ photoCapturingModal: false });
+      });
   }
 
   render() {
