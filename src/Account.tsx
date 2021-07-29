@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import Modal from 'react-modal';
 import { ReactComponent as Photo } from './images/photo.svg';
-import { ReactComponent as Close } from './images/fail.svg';
-import { ReactComponent as Like } from './images/like.svg';
-import { ReactComponent as Dislike } from './images/dislike.svg';
 import Header from './Header';
+import PhotoShowingModal from './PhotoShowingModal';
 import { allPhotos, deletePrivatePhoto, deletePublicPhoto } from './firebase/firebase.utils';
 
 type Props = {
@@ -125,65 +122,19 @@ export default class Account extends Component<Props, State> {
       </div>
     );
 
-    const data = this.photos.find((photo: any) => photo.photoData === imgData);
-    const userReactions = (reaction: string): number => {
-      let like = 0;
-      let dislike = 0;
-      data.reactions.forEach((el: any) => {
-        like += el.like;
-        dislike += el.dislike;
-      });
-      const count = (reaction === 'like') ? like : dislike;
-
-      return count;
-    };
+    const userImage = this.photos.find((photo: any) => photo.photoData === imgData);
 
     return (
       <div className="account-component">
         <Header appState={appState} setView={setView} />
-        <div>
-          <Modal isOpen={showPhoto} onRequestClose={this.closeModal}>
-            <div
-              className="close-button"
-              role="button"
-              tabIndex={0}
-              onKeyUp={() => this.closeModal()}
-              onClick={() => this.closeModal()}
-            >
-              <Close />
-            </div>
-            <div className="image-section">
-              <div>{imgDesc}</div>
-              <img src={imgData} alt="user" />
-              {data && data.reactions && (
-                <div className="reactions">
-                  <div className="reaction-button">
-                    <div className="count">
-                      {`${userReactions('like') ? userReactions('like') : ''}`}
-                    </div>
-                    <Like />
-                  </div>
-                  <div className="reaction-button">
-                    <div className="count">
-                      {`${userReactions('dislike') ? userReactions('dislike') : ''}`}
-                    </div>
-                    <Dislike />
-                  </div>
-                </div>
-              )}
-              <div
-                className="link"
-                role="button"
-                tabIndex={0}
-                onKeyUp={() => this.deletePhoto()}
-                onClick={() => this.deletePhoto()}
-              >
-                Delete photo
-              </div>
-
-            </div>
-          </Modal>
-        </div>
+        <PhotoShowingModal
+          showPhoto={showPhoto}
+          imgData={imgData}
+          imgDesc={imgDesc}
+          userImage={userImage}
+          closeModal={this.closeModal}
+          deletePhoto={this.deletePhoto}
+        />
         <div className="main">
           <div className="new-photo-section">
             <div
