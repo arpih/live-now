@@ -136,9 +136,9 @@ export default class PhotoCapturingModal extends Component<Props, State> {
     photo.userName = currentUser.displayName;
     photo.reactions = [];
 
-    addPhoto(currentUser.uid, this.photo, photo);
-
     closePhotoCapturingModal();
+
+    addPhoto(currentUser.uid, this.photo, photo);
   }
 
   start = () => {
