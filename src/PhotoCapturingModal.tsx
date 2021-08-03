@@ -14,7 +14,7 @@ type Props = {
 
 type State = {
   photoDesc: string
-  photoStatus?: string,
+  photoStatus: string,
 }
 
 type PhotoType = {
@@ -57,6 +57,7 @@ export default class PhotoCapturingModal extends Component<Props, State> {
     super(props);
     this.state = {
       photoDesc: '',
+      photoStatus: PhotoStatus.capture,
     };
   }
 
@@ -73,15 +74,12 @@ export default class PhotoCapturingModal extends Component<Props, State> {
       this.video.srcObject = stream;
       this.streams.push(stream);
       try {
-        this.video.play()
-          .then(() => {
-            this.setState({ photoStatus: PhotoStatus.capture });
-          });
+        this.video.play();
       } catch (err) {
-        // console.log(err);
+        console.log('video.play error - ', err); // eslint-disable-line no-console
       }
-    }).catch(() => {
-      // console.log(err);
+    }).catch((err) => {
+      console.log('getuserMedia error - ', err); // eslint-disable-line no-console
     });
   }
 
@@ -112,7 +110,7 @@ export default class PhotoCapturingModal extends Component<Props, State> {
       });
       this.streams = [];
     } catch (err) {
-      // console.log('stopVideo error', err);
+      console.log('stopVideo error - ', err); // eslint-disable-line no-console
     }
   }
 
@@ -217,7 +215,7 @@ export default class PhotoCapturingModal extends Component<Props, State> {
           </div>
           <div className="photo-capturing-component">
             <canvas id="canvas" ref={this.videoCanvasRef} style={canvasStyle} />
-            <video className="" ref={this.videoRef} style={videoStyle} muted playsInline />
+            <video ref={this.videoRef} style={videoStyle} muted playsInline />
             <div>
               {photoStatus === PhotoStatus.finish && (
                 <div>
