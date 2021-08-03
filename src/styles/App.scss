@@ -41,6 +41,10 @@
   .image-section {
     text-align: center;
 
+    .image-desc {
+      margin-bottom: 10px;
+    }
+
     .reactions {
       display: flex;
       justify-content: center;
@@ -340,5 +344,12 @@
     .photo-component {
       height: 100vh;
     }
+  }
+}
+
+@media (orientation: portrait) {
+  .ReactModal__Content--after-open {
+    width: 300px !important;
+    padding: 10px !important;
   }
 }

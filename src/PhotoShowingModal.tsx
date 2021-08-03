@@ -51,7 +51,7 @@ export default class PhotoShowingModal extends Component<Props> {
             <Close />
           </div>
           <div className="image-section">
-            <div>{imgDesc}</div>
+            <div className="image-desc">{imgDesc}</div>
             <img src={imgData} alt="user" />
             {userImage && userImage.reactions && (
               <div className="reactions">
