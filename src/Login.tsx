@@ -162,7 +162,7 @@ export default class Login extends Component<Props, State> {
     return (
       <div className="login-component">
         <Header appState={appState} setView={setView} />
-        <Translate content="loginWelcome" component="h1" />
+        <Translate content="loginWelcome" component="h2" />
         <div className="main">
           <div className="photos-section">
             {isReady && photosHTML}
