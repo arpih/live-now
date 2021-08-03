@@ -1,6 +1,9 @@
 export default {
-  loginWelcome: 'Կիսվի՜ր պահդ մարդկանց հետ',
   loginSignIn: 'Մուտք գործել',
   loginSignOut: 'Դուրս գալ',
-  loginMessage: 'Ցանկանու՞մ եք կիսվել ձեր պահը։',
+  loginWelcome: 'Կիսվի՜ր պահդ մարդկանց հետ',
+  photoCapturingMessage: 'Ցանկանու՞մ եք կիսվել ձեր պահը։',
+  showMore: 'Ցույց տալ ավելին',
+  showLess: 'Փակել',
+  deletePhoto: 'Ջնջել նկարը',
 };

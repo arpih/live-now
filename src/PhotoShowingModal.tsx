@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
+// @ts-ignore
+import Translate from 'react-translate-component';
 import { ReactComponent as Close } from './images/fail.svg';
 import { ReactComponent as Like } from './images/like.svg';
 import { ReactComponent as Dislike } from './images/dislike.svg';
@@ -74,7 +76,7 @@ export default class PhotoShowingModal extends Component<Props> {
               onKeyUp={() => deletePhoto()}
               onClick={() => deletePhoto()}
             >
-              Delete photo
+              <Translate content="deletePhoto" />
             </div>
           </div>
         </Modal>

@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+// @ts-ignore
+import Translate from 'react-translate-component';
 import { ReactComponent as Photo } from './images/photo.svg';
 import Header from './Header';
 import PhotoShowingModal from './PhotoShowingModal';
@@ -114,7 +116,7 @@ export default class Account extends Component<Props, State> {
         onKeyUp={() => {}}
         onClick={() => this.handleShowPhotos()}
       >
-        Show less
+        <Translate content="showLess" />
       </div>
     ) : (
       <div
@@ -124,7 +126,7 @@ export default class Account extends Component<Props, State> {
         onKeyUp={() => {}}
         onClick={() => this.handleShowPhotos()}
       >
-        Show more
+        <Translate content="showMore" />
       </div>
     );
 
@@ -157,7 +159,7 @@ export default class Account extends Component<Props, State> {
             >
               <Photo />
             </div>
-            <div>Would you like to share your moment?</div>
+            <Translate content="photoCapturingMessage" component="div" />
           </div>
           <div className="photos-section">
             {photosHTML}
