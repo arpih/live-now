@@ -2,7 +2,7 @@
 
 LiveNow is a responsive web application, which works on mobile and desktop in a browser,
 and which performs take a picture and share with people. This application is available on the following URL's:
-- https://arpih.github.io/live-now/
+- https://arpih.github.io/live_now/
 
 This repository includes two major parts of the application: frontend and firestore database.
 
